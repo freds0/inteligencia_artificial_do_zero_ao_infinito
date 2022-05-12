@@ -1,0 +1,289 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Modelo MobileNet}
+\institute[UFMT-Faeng]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}
+%  \frametitle{Agenda}
+%  \tableofcontents
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Introdução}
+\begin{itemize}
+\item {\bf R-CNN}: {\it Selective Search} + {\it AlexNet} + SVM.
+\item {\bf Fast R-CNN}: {\it Selective Search} + {\it VGG16} + FC.
+\item {\bf Faster R-CNN}: {\it RPN} + {\it VGG16} + FC
+\end{itemize}
+
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://machinelearningmastery.com/object-recognition-with-deep-learning/}{https://machinelearningmastery.com/object-recognition-with-deep-learning/}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Introdução}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/r-cnn_vs_fast_r-cnn_vs_faster_r-cnn.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{MobileNet}
+\begin{itemize}
+\item {\bf MobileNet} é um modelo desenvolvido para ser usado em aplicações mobile.
+\item A convoluções foram substituídas por {\it Depthwise Separable Convolutions}.
+\item Reduziu o número de parâmetros em comparação com as convoluções regulares, pois requer um número menor de mútiplicações e adições.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://arxiv.org/abs/1704.04861}{MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications}}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{MobileNet}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/mobile_computer_vision.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/analytics-vidhya/image-classification-with-mobilenet-cc6fbb2cd470}{Image Classification With MobileNet}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{MobileNet}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mobilenet_vs_others.png}
+\end{figure}
+\small{MACs ({\it Multiply-Accumulates}) é o número de operações de Multiplicação e Adição fundidas.}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/analytics-vidhya/image-classification-with-mobilenet-cc6fbb2cd470}{Image Classification With MobileNet}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spatial Separable Convolution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Spatial Separable Convolution}
+\begin{itemize}
+\item A {\it spatial separable convolution} é assim chamada porque manipula as dimensões espaciais de uma imagem e do kernel: a largura e a altura.
+\item Divide um kernel em dois kernels menores.
+\item Como exemplo, considere o filtro de Sobel:
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/spatial_separable_convolution_example.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Spatial Separable Convolution}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/spatial_separable_convolution.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/a-basic-introduction-to-separable-convolutions-b99ec3102728}{A Basic Introduction to Separable Convolutions}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Spatial Separable Convolution}
+\begin{itemize}
+\item Ao invés de fazer 1 convolução com 9 multiplicações, são feitas 2 convoluções com 3 multiplicações (6 no total) cada, que alcançam o mesmo efeito. 
+\item Com menos multiplicações, a complexidade computacional diminui e a rede executa mais rapidamente.
+\item O principal problema é que com {\it spatial separable convolutions} nem todos os kernels podem ser ``separados'' em dois kernels menores.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Depthwise Separable Convolutions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Depthwise Separable Convolutions}
+\begin{itemize}
+\item {\it Depthwise separable convolutions} funcionam com kernels que não podem ser ``fatorados'' em dois kernels menores.
+\item Divide um kernel em 2 kernels separados que executam duas convoluções:
+\begin{itemize}
+\item uma {\it depthwise convolution} e 
+\item uma {\it pointwise convolution}.
+\end{itemize} 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Depthwise and Pointwise Convolutions}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/depthwise_and_pointwise_convolutions}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/analytics-vidhya/image-classification-with-mobilenet-cc6fbb2cd470}{Image Classification With MobileNet}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{MobileNetV1}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mobilenet_architecture}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/analytics-vidhya/image-classification-with-mobilenet-cc6fbb2cd470}{Image Classification With MobileNet}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{MobileNetV1}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/mobilenetV1.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/analytics-vidhya/image-classification-with-mobilenet-cc6fbb2cd470}{Image Classification With MobileNet}}
+\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Detecção de Objetos}{MobileNetV2}
+%\begin{figure}[h]
+%\includegraphics[width=10cm]{imgs/mobilenetV2.jpg}
+%\end{figure}
+%
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://iq.opengenus.org/mobilenet-v1-architecture/}{MobileNet V1 Architecture}}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Detecção de Objetos}{MobileNetV3}
+%\begin{figure}[h]
+%\includegraphics[width=10cm]{imgs/mobilenetV3_large.jpg}
+%\end{figure}
+%
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://iq.opengenus.org/mobilenet-v1-architecture/}{MobileNet V1 Architecture}}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Detecção de Objetos}{Desafios}
+%\begin{columns}[T] % align columns
+%\begin{column}{.55\textwidth}
+%\vspace{5mm} %5mm vertical space
+%\begin{itemize}
+%\item {\bf Múltiplas Saídas}: número variável de objetos detectados por imagem.
+%\item {\bf Múltiplos tipos de saída}: prediz ``qual'' (label da categoria) e ``onde'' ({\it bounding box}).
+%\item {\bf Tamanho} variável de objetos.
+%\item {\bf Dimensão}: classificação funciona em imagens de dimensão $224 \times 224$; enquanto que detecção deve funcionar em imagens de alta resolução ($\geq 800 \times 600$).
+%\end{itemize}
+%
+%\end{column}%
+%\hfill%
+%\begin{column}{.5\textwidth}
+%
+%
+%\begin{figure}[h]
+%\includegraphics[width=6cm]{imgs/object_detection_task_definition.png}
+%\end{figure}
+%
+%\end{column}%
+%\end{columns}
+%
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{MobileNet}{Versões}
+\begin{itemize}
+\item {\bf MobileNet V2}: mudanças significativas foram feitas na arquitetura MobileNetV1 que resultaram em um aumento considerável na precisão do modelo. 
+\item {\bf MobileNet V3 Small}: é 6,6\% mais precisa na classificação do que MobileNetV2 e tem latência semelhante. 
+\item {\bf MobileNet V3 Large}: é 3,2\% mais precisa na classificação e reduz a latência em 20\% quando comparado ao MobileNetV2.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://iq.opengenus.org/mobilenet-v1-architecture/}{MobileNet V1 Architecture}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item MobileNet Architecture Explained
+\begin{itemize}
+\item \href{https://prabinnepal.com/mobilenet-architecture-explained/}{https://prabinnepal.com/mobilenet-architecture-explained/}
+\end{itemize}
+\item Review: MobileNetV1 - Depthwise Separable Convolution (Light Weight Model)
+\begin{itemize}
+\item \href{https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69}{https://towardsdatascience.com/review-mobilenetv1-depthwise-separable-convolution-light-weight-model-a382df364b69}
+\end{itemize}
+\item MobileNet V1 Architecture
+\begin{itemize}
+\item \href{https://iq.opengenus.org/mobilenet-v1-architecture/}{https://iq.opengenus.org/mobilenet-v1-architecture/}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

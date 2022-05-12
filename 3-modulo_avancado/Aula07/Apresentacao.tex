@@ -1,0 +1,185 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Modelos para Segmentacão de Imagens}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Arquiteturas}
+\begin{itemize}
+\item {\bf R-CNN} (Regions with Convolutional Network)
+\item {\bf Fast-RCNN}
+\item {\bf Faster-RCNN}
+\item {\bf MobileNet}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Segmentação de Imagens}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação de Imagens}
+\begin{itemize}
+\item Segmentação Semântica 
+\item Segmentação de instância
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://ichi.pro/pt/deteccao-de-objetos-e-segmentacao-de-instancias-uma-visao-geral-detalhada-163595582338290}{Detecção de objetos e segmentação de instâncias: uma visão geral detalhada}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação de Imagens}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/coco_instance_segmentation.jpeg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \url{https://manipulation.mit.edu/segmentation.html}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação de Imagens}{Segmentação Semântica}
+Segmentação Semântica 
+\begin{itemize}
+\item Refere-se ao processo de vinculação de cada pixel da imagem a um determinado rótulo de classe.
+\item Por exemplo, em uma imagem os pixels são rotulados como carro, árvore, pedestre etc.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://ichi.pro/pt/deteccao-de-objetos-e-segmentacao-de-instancias-uma-visao-geral-detalhada-163595582338290}{Detecção de objetos e segmentação de instâncias: uma visão geral detalhada}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação de Imagens}{Segmentação Semântica}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/semantica_segmentation.jpeg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \url{https://www.researchgate.net/figure/Semantic-segmentation-left-and-Instance-segmentation-right-8_fig1_339616270}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação de Imagens}
+Segmentação de instância 
+\begin{itemize}
+\item Associa um rótulo de classe a cada pixel semelhante à segmentação semântica.
+\item Entretanto, trata vários objetos da mesma classe como objetos individuais/entidades separadas.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://ichi.pro/pt/deteccao-de-objetos-e-segmentacao-de-instancias-uma-visao-geral-detalhada-163595582338290}{Detecção de objetos e segmentação de instâncias: uma visão geral detalhada}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Segmentação Semântica x Instância}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/instance_semantic_segmentation.jpeg}
+\caption{Segmentação Semântica (esq.) x Segmentação de Instância (dir.)}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \url{https://www.researchgate.net/figure/Semantic-segmentation-left-and-Instance-segmentation-right-8_fig1_339616270}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mask R-CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Mask R-CNN}
+Rede Neural Convolucional Regional de Máscara
+\begin{itemize}
+\item É uma extensão do algoritmo de detecção de objeto Faster R-CNN que adiciona recursos extras, como segmentação de instância. 
+\item Isso nos permite formar segmentos no nível de pixel de cada objeto e também separar cada objeto de seu fundo
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{http://www2.decom.ufop.br/imobilis/segmentacao-instancias/}{Edge AI - MASkRCNN e segmentação de Instâncias}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Mask R-CNN}
+O Mask R-CNN é baseado em duas etapas: 
+\begin{itemize}
+\item Primeiro, faz a varredura da imagem para gerar propostas; que são áreas com alta probabilidade de conter um objeto.
+\item Em segundo lugar, ele classifica essas propostas e cria caixas delimitadoras e máscaras.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{http://www2.decom.ufop.br/imobilis/segmentacao-instancias/}{Edge AI - MASkRCNN e segmentação de Instâncias}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referencias}
+\begin{itemize}
+\item Detecção de objetos e segmentação de instâncias: uma visão geral detalhada
+  \begin{itemize}
+  \item \url{https://ichi.pro/pt/deteccao-de-objetos-e-segmentacao-de-instancias-uma-visao-geral-detalhada-163595582338290}
+  \end{itemize}  
+\item Object Detection and Instance Segmentation: A detailed overview
+  \begin{itemize}
+  \item \url{https://medium.com/swlh/object-detection-and-instance-segmentation-a-detailed-overview-94ca109274f2}
+  \end{itemize}
+ \item Simple Understanding of Mask RCNN
+ \begin{itemize}
+ \item \url{https://alittlepain833.medium.com/simple-understanding-of-mask-rcnn-134b5b330e95}
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\end{document}

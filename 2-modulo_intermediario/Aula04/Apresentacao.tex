@@ -1,0 +1,549 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Redes Neurais Convolucionais}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convoluçao}
+\begin{itemize}
+\item {\bf Convoluçao} é a simples aplicação de um filtro sobre uma entrada resultando em uma ativação.
+\item A aplicação de forma repetida de um filtro (ou kernel) sobre uma imagem resulta em um {\it mapa de ativação}, também chamado {\bf mapa de features}. 
+\item A principal vantagem é que os filtros preservam as relações espaciais entre os pixels.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convoluçao}
+\begin{itemize}
+\item A inovaçao das {\bf Redes Neurais Convolucionais} (CNNs) é a habilidade de automaticamente aprender um grande número de filtros.
+\item Camadas convolucionais podem conter diversos filtros, que são aplicados em paralelo.
+\item Como resultado, obtém-se diversos filtros especializados em extrair {\it features} específicas para determinadas tarefas.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/}{https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convolução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example01.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example02.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example03.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example04.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example05.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example06.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example07.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example08.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example09.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example10.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example11.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example12.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example13.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example14.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example15.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Zero Padding}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Zero Padding}
+\begin{itemize}
+\item A operação de convolução pode impactar na dimensão da imagem resultado, reduzindo-a consideravelmente
+\item {\bf Padding} é o processo em que alguns pixels são adicionados ao redor da imagem
+\item Assim é possível manter a dimensionalidade na imagem resultante após uma operação de convolução
+\end{itemize}
+
+\vspace{1cm}
+\tiny{ Fonte: {\color{blue} \href{https://medium.com/data-hackers/uma-introdu\%C3\%A7\%C3\%A3o-as-redes-neurais-convolucionais-utilizando-o-keras-41ee8dcc033e}{Uma introdução as redes neurais convolucionais utilizando o Keras} } }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Zero Padding}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example16.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/convolution_example17.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/keras_padding.jpg}
+\end{figure}
+
+%\vspace{1cm}
+\tiny{ Fonte: {\color{blue} \href{http://library.draconianfleet.com/epubfs.php?data=7626&comp=ch15.html}{Classifying Images with Deep Convolutional Neural Networks} } }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Stride}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+\begin{itemize}
+\item Algumas vezes é necessário ``compactar'' alguns pixels da imagem
+\item {\bf Stride} indica o tamanho do deslocamento ao deslizar o {\it kernel} sobre a imagem
+\item Indicado em pixels
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+Quando stride é 1, descola-se 1 pixel por vez
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/stride_example.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+Quando stride é 1, descola-se 1 pixel por vez
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/stride_example1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+Quando stride é 1, descola-se 1 pixel por vez
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/stride_example2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+Quando stride é 2, descola-se 2 pixels por vez
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/stride_example.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Stride}
+Quando stride é 2, descola-se 2 pixels por vez
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/stride_example2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Dilatation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Dilatação}
+\begin{itemize}
+\item Algumas vezes é interessante ``pular'' alguns valores. Ex. ao se trabalhar com imagens de grande dimensão
+\item {\bf Convoluções Dilatadas} permitem que o {\it kernel} aumente o ``alcance de visão'', sem aumentar o número de parâmetros
+\item Também há perda de informação, pois nem todos os pixels são processados
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: {\color{blue} \href{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}{Types of Convolution Kernels : Simplified} }}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convolução}{Dilatação}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/dilated_convolution.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: {\color{blue} \href{https://www.researchgate.net/publication/336002670_Multiscale_Spatial-Spectral_Convolutional_Network_with_Image-Based_Framework_for_Hyperspectral_Imagery_Classification}{Multiscale Spatial-Spectral Convolutional Network with Image-Based Framework for Hyperspectral Imagery Classification } } }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Formula}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Formula}
+A fórmula da convolução 
+\begin{equation}
+Out = \frac{(In - F + 2P)} {S} + 1 \nonumber
+\end{equation}
+em que
+\begin{itemize}
+\item $In$ é o tamanho da entrada
+\item $F$ é o tamanho do campo receptivo (kernel)
+\item $P$ é a quantidade de {\it zero padding} na borda
+\item $S$ é o {\it stride}
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Referência: {\color{blue} \href{https://cs231n.github.io/convolutional-networks/}{Convolutional Neural Networks for Visual Recognition} } }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pooling}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Pooling}
+\begin{itemize}
+\item Outra estratégia para reduzir a dimensionalidade de uma imagem de entrada é utilizar camadas de {\bf pooling}
+\item São também chamadas de camadas {\it downsampling} or {\it subsampling}
+\item Existem três diferentes tipos de {\it pooling} espacial:
+\begin{itemize}
+\item Max Pooling
+\item Average Pooling
+\item Sum Pooling
+\end{itemize}
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Referência: {\color{blue} \href{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}{Types of Convolution Kernels : Simplified} }}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Max Pooling}
+Max Pooling: 2x2 stride 2
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/max_pooling.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Max Pooling}
+Max Pooling: 2x2 stride 2
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/max_pooling1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Max Pooling}
+Max Pooling: 2x2 stride 2
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/max_pooling2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Max Pooling}
+Max Pooling: 2x2 stride 2
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/max_pooling3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Max Pooling}
+Max Pooling: 2x2 stride 2
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/max_pooling4.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Kernel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Kernel}
+\begin{itemize}
+\item Detectores de {\it Features}.
+\item {\it Kernels} sao definidos durante o processo de treinamento.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Kernel}{\bf Blur}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/kernels_example1.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://aishack.in/tutorials/image-convolution-examples/}{Image convolution examples}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Kernel}{\bf Gaussian Blur}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/kernels_example2.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://aishack.in/tutorials/image-convolution-examples/}{Image convolution examples}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Kernel}{\it Line Detection}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/kernels_example3.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://aishack.in/tutorials/image-convolution-examples/}{Image convolution examples}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Kernel}{\it Edge Detection}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/kernels_example4.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://aishack.in/tutorials/image-convolution-examples/}{Image convolution examples}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Channels}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{CNN Architecture}
+\begin{itemize}
+\item Imagens coloridas possuem três canais: {\color{red} Red} x {\color{green} Green} x {\color{blue} Blue}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Channels}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/rgb_image.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Channels}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/rgb_image.png}
+\end{figure}
+kernel = 3 x 3 x 3, Nº Pesos = 27
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Number of Filters}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Number of Filters}
+
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/number_filters_channels.jpg}
+\end{figure}
+%\vspace{1cm}
+\tiny{Fonte: \href{https://cs231n.github.io/convolutional-networks/}{Convolutional Neural Networks (CNNs / ConvNets)} }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Number of Filters}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/number_filters.png}
+\end{figure}
+
+Total de Pesos: $3x3x3*2+2 = 56$
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://mmuratarat.github.io/2019-01-17/implementing-padding-schemes-of-tensorflow-in-python}{Implementing 'SAME' and 'VALID' padding of Tensorflow in Python} }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item Intuitively Understanding Convolutions for Deep Learning
+\begin{itemize}
+\item \href{https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1}{https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1}
+\end{itemize}
+\item Convolutional Neural Networks, Explained
+\begin{itemize}
+\item \href{https://towardsdatascience.com/convolutional-neural-networks-explained-9cc5188c4939}{https://towardsdatascience.com/convolutional-neural-networks-explained-9cc5188c4939}
+\end{itemize}
+\item Image convolution examples
+\begin{itemize}
+\item \href{https://aishack.in/tutorials/image-convolution-examples/}{https://aishack.in/tutorials/image-convolution-examples/}
+\end{itemize}
+\item Types of Convolution Kernels : Simplified
+\begin{itemize}
+\item \href{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

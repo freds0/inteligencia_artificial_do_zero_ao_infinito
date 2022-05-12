@@ -1,0 +1,356 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Overfitting e Métodos de Regularizacão}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}
+\begin{itemize}
+\item {\bf Overfitting} é um dos principais problemas durante o treinamento de modelos neurais.
+\item Ocorre quando um modelo realiza sua tarefa de forma excelente no conjunto de treino, mas é ineficaz em um conjunto de teste.
+\item Evitar o {\it overfitting} pode, por si só, melhorar o desempenho do modelo.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Overfitting}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/overfitting.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}
+\begin{itemize}
+\item Variância indica a variabilidade das predições do modelo.
+\item Um modelo com {\it alta variância} ``decorou'' o conjunto de treinamento, mas não consegue predizer dados não vistos.
+\item Tornou-se muito complexo de tal forma que não é capaz de generalizar resultados ({\bf overfitting}). 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}
+\begin{itemize}
+\item {\it Viés} é a diferença entre as predições do modelo e os valores reais.
+%\item Um modelo com {\it alto viés} ou é demasiadamente simplificado ou não foi treinado suficientemente.
+\item Ocorrem altas taxas de erro no conjunto de treinamento e também no conjunto de testes ({\bf underfitting}).
+\item Um modelo demasiadamente simplificado ou mal treinado resulta em uma predições falhas e pouco assertivas.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Complexidade do Modelo}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/bias_variance.jpeg}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Complexidade do Modelo}{\it Trade-off} 
+%Dilema: Varianncia x Viés.
+%\begin{figure}[h]
+%\includegraphics[width=9cm]{imgs/variance_bias.png}
+%\end{figure}
+%O erro total é soma do viés (bias) com a variância\footnote{https://medium.com/@gisely.alves/vi\%C3\%A9s-vari\%C3\%A2ncia-e-regulariza\%C3\%A7\%C3\%A3o-14fd0c0c29ba}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais Multicamadas}{Referências}
+\begin{itemize}
+\item \href{https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229}{Understanding the Bias-Variance Tradeoff}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Keep it Simple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Keep it Simple}
+\begin{itemize}
+\item {\bf Simplificar a arquitetura} é o primeiro passo para evitar {\it overfitting}.
+\item Remover algumas camadas.
+\item Diminuir número de neurônios.
+\item Infelizmente, não existe uma regra universal.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Early stopping}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Early stopping}
+\begin{itemize}
+\item {\bf Early stopping} consiste em encerrar o treinamento antes que aconteça {\it overfitting}.
+\item Interrompe-se o treinamento quando ocorre divergência entre os valores do custo de treinamento e de teste.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Early stopping}
+
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/early_stopping.png}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Referência: \href{https://www.kaggle.com/ryanholbrook/overfitting-and-underfitting}{https://www.kaggle.com/ryanholbrook/overfitting-and-underfitting}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}{Early stopping}
+\begin{itemize}
+\item A Gentle Introduction to Early Stopping to Avoid Overtraining Neural Networks
+\begin{itemize}
+\item \href{https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/}{https://machinelearningmastery.com/early-stopping-to-avoid-overtraining-neural-network-models/}
+\end{itemize}
+\item Introduction to Early Stopping: an effective tool to regularize neural nets
+\begin{itemize}
+\item \href{https://towardsdatascience.com/early-stopping-a-cool-strategy-to-regularize-neural-networks-bfdeca6d722e}{https://towardsdatascience.com/early-stopping-a-cool-strategy-to-regularize-neural-networks-bfdeca6d722e}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dropout}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dropout}
+\begin{itemize}
+\item {\bf Dropout} consiste em aleatoriamente ``matar'' alguns neurônios da rede neural durante o treinamento.
+\item Previne que os neurônios se especializem demais em algumas instâncias do problema.
+\item Torna o modelo mais robusto, fazendo com que alguns neurônios aprendam a corrigir erros dos demais.
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Referência: \href{https://jmlr.org/papers/v15/srivastava14a.html}{Dropout: A Simple Way to Prevent Neural Networks from Overfitting }}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dropout}
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/dropout.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dropout}
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/dropout1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dropout}
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/dropout2.png}
+\end{figure}
+\end{frame}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Dropout}
+
+\begin{itemize}
+\item Define-se uma probabilidade de neurônios que sofrerão {\it dropout}.
+\begin{itemize}
+\item $0,1 \leq p \leq 0,5$
+\end{itemize}
+\item {\it Dropout} deve ser aplicado nas camadas ocultas.
+\item Não deve-se aplicar na camada de saída.
+\end{itemize}
+
+\begin{block}{Origem do termo}
+{\it The term ``dropout'' refers to dropping out units (hidden and visible) in a neural network.}
+\end{block}
+
+\vspace{1	cm}
+\tiny{Referência: \href{https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/}{A Gentle Introduction to Dropout for Regularizing Deep Neural Networks}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}{Dropout}
+\begin{itemize}
+\item Dropout: A Simple Way to Prevent Neural Networks from Overfitting
+\begin{itemize}
+\item \href{https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf}{https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf}
+\end{itemize}
+\item Deep Learning Book: Capítulo 23 - Como Funciona o Dropout?
+\begin{itemize}
+\item \href{https://www.deeplearningbook.com.br/capitulo-23-como-funciona-o-dropout/}{https://www.deeplearningbook.com.br/capitulo-23-como-funciona-o-dropout/}
+\end{itemize}
+\item A Gentle Introduction to Dropout for Regularizing Deep Neural Networks
+\begin{itemize}
+\item \href{https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/}{https://machinelearningmastery.com/dropout-for-regularizing-deep-neural-networks/}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regularização L1 e L2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Regularização L1 e L2}
+\begin{itemize}
+\item Regularização L1 e L2 adicionam uma penalidade à função erro.
+\item A ideia é que ao invés de ``zerar'' alguns pesos, podemos simplesmente reduzir seu valor.
+\item Minimizar a norma incentiva os pesos a serem pequenos, o que, por sua vez, fornece funções ``mais simples''.
+\end{itemize}
+%\item Adicionam um termo de regularização à perda.
+\end{frame}
+
+\begin{frame}{Regularização L1 e L2}
+L1 e L2 referem-se à Norma L1 e L2
+\begin{equation}
+\textrm{L1 Norm  } || w ||_1 = \sum_{i}^{n} | w_i | \nonumber
+\end{equation}
+
+\begin{equation}
+\textrm{L2 Norm  } || w ||_2 = \sum_{i}^{n}  w_i^2 \nonumber
+\end{equation}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Regularização L1}
+\begin{itemize}
+\item A norma L1 levará alguns pesos a 0, induzindo esparsidade nos pesos.
+\item Os pesos diminuem em uma quantidade constante para 0.
+\item Isso evita que a rede ``decore'' algumas instâncias.
+\end{itemize}
+\begin{equation}
+E(p, y) = \frac{1}{2} (p -y)^2 + \lambda \sum | w_i | \nonumber
+\end{equation}
+
+\vspace{3cm}
+\tiny{Referência: \href{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586}{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586} }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Regularização L2}
+\begin{itemize}
+\item A norma L2 reduzirá todos os pesos, mas não totalmente para 0.
+\item Os pesos diminuem em um valor proporcional a $w$.
+\item É menos eficiente em relação à L1 quanto à memória neural.
+\end{itemize}
+\begin{equation}
+E(p, y) = \frac{1}{2} (p -y)^2 + \lambda \sum | w_i |^2 \nonumber
+\end{equation}
+
+\vspace{3cm}
+\tiny{Referência: \href{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586}{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586} }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Regularização L2}
+%\begin{itemize}
+%\item Existe um parâmetro de regularização $\lambda$ definido manualmente.
+%\item Valores grandes de $\lambda$ podem levar o modelo ao {\it underfit}.
+%\item Valores pequenos de $\lambda$ podem levar o modelo ao {\it overfit}.
+%\end{itemize}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Exemplo}{MNIST}
+\huge{Exemplo Prático MNIST}
+
+\vspace{3cm}
+\tiny{Referência: \href{https://selectstar-ai.medium.com/what-is-mnist-and-why-is-it-important-e9a269edbad5}{https://selectstar-ai.medium.com/what-is-mnist-and-why-is-it-important-e9a269edbad5} }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}{Regularização L1 e L2}
+\begin{itemize}
+\item Intuitions on L1 and L2 Regularization
+\begin{itemize}
+\item \href{https://towardsdatascience.com/intuitions-on-l1-and-l2-regularisation-235f2db4c261}{https://towardsdatascience.com/intuitions-on-l1-and-l2-regularisation-235f2db4c261}
+\end{itemize}
+\item Visualizando a regularização e as normas L1 e L2
+\begin{itemize}
+\item \href{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586}{https://ichi.pro/pt/visualizando-a-regularizacao-e-as-normas-l1-e-l2-239017789921586}
+\end{itemize}
+\item Deep Learning Book: Capítulo 22 - Regularização L1
+\begin{itemize}
+\item \href{https://www.deeplearningbook.com.br/capitulo-22-regularizacao-l1/}{ttps://www.deeplearningbook.com.br/capitulo-22-regularizacao-l1/}
+\end{itemize}
+\end{itemize}
+\end{frame} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

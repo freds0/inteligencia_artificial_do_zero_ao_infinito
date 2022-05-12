@@ -1,0 +1,4 @@
+\babel@toc {portuges}{}
+\beamer@sectionintoc {1}{TF Serving}{3}{0}{1}
+\beamer@sectionintoc {2}{gRPC}{7}{0}{2}
+\beamer@sectionintoc {3}{Aplica\c c\~ao}{10}{0}{3}

@@ -1,0 +1,388 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Datasets e Formatos de Anotacão}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Quem sou Eu}
+%\begin{columns}[T] % align columns
+%\begin{column}{.30\textwidth}
+%{\bf Frederico S. Oliveira}
+%\begin{figure}[h]
+%\includegraphics[width=3.5cm]{imgs/perfil.png}
+%\end{figure}
+%\end{column}%
+%\hfill%
+%\begin{column}{.64\textwidth}
+%\begin{itemize}
+%\item Bacharel e Mestre em Ciência da Computação (UFLA). 
+%\item Doutorando em Inteligência Artificial (UFG). 
+%\item Professor UFMT.
+%\item \href{http://ww.fredso.com.br}{http://www.fredso.com.br}
+%\item fred.santos.oliveira@gmail.com
+%\item \href{https://www.linkedin.com/in/fred-santos-oliveira/}{https://www.linkedin.com/in/fred-santos-oliveira/}
+%\end{itemize}
+%\end{column}%
+%
+%\end{columns}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{O que aprenderei neste Curso?}{Módulo Avançado}
+%\begin{itemize}
+%\item Realizar a Criação e Treinamento de Modelos de Visão Computacional.
+%\item Utilizar as principais arquiteturas para: 
+%\begin{itemize}
+%\item Detecção de Objetos
+%\item Segmentação de Instâncias
+%%\item Segmentação Semântica
+%\end{itemize}
+%\item Duração Estimada: 6 aulas
+%\end{itemize}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Objetivos}
+%Na aula de hoje, nosso objetivo é:
+%\begin{itemize}
+%\item Apresentar os principais formatos para anotação de dados.
+%\item Verificar ferramentas para anotação das imagens.
+%\end{itemize}
+%
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Datasets}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}
+Os principais datasets para a tarefa de detecção de objetos são:
+\begin{itemize}
+\item COCO Dataset
+\item PASCAL VOC dataset
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{COCO Dataset}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{itemize}
+\item O {\bf Microsoft COCO Dataset} ({\it Common Objects in Context})  é um conjunto de dados de detecção e segmentação de objetos publicado pela Microsoft. 
+\item Possui 330K imagens (200K+ anotadas).
+\item Possui >2M instâncias em 80 classes.
+\item Utiliza o formato JSON para as anotações.
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pascal VOC Dataset}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{PASCAL VOC Dataset}
+\begin{itemize}
+\item O {\bf PASCAL VOC Dataset} fornece um dataset de imagens padronizado para detecção de objetos.
+\item Possui $\approx$11K imagens contendo $\approx$ 27K objetos anotados pertencentes à 20 classes.
+\item Utiliza o formato XML para as anotações.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Annotations Format}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Annotations Format}
+Os principais formatos para anotação são definidos pelos dois datasets:
+\begin{itemize}
+\item {\bf Pascal VOC Dataset}
+\item {\bf COCO Dataset}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{COCO Format}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset Format}
+O formato {\bf COCO Dataset} utiliza um arquivo {\bf JSON} de anotação, o qual possui os seguintes blocos:
+\begin{itemize}
+\item {\bf info}: contém informações sobre o dataset.
+\item {\bf licenses}: contém uma lista de licenças das imagens.
+\item {\bf categories}: contém uma lista de categorias.
+\item {\bf images}: contém informações de todas as imagens, exceto bounding boxes.
+\item {\bf annotations}: contém lista dos {\it bounding boxes}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/info.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/licenca.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/categorias.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/imagens.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{COCO Dataset}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/anotacoes.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Pascal VOC Format}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{Pascal VOC Dataset}
+O formato {\bf Pascal VOC Dataset} utiliza um arquivo {\bf XML} de anotação, o qual possui os seguintes blocos:
+\begin{itemize}
+\item {\bf Folder}: nome da pasta que contém o arquivo.
+\item {\bf Filename}: nome do arquivo existente na pasta.
+\item {\bf Size}: informações sobre as dimensões da imagem.
+\item {\bf Object}: informações sobre o objeto a ser identificado.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{Pascal VOC Dataset}
+As informações sobre o objetos são:
+\begin{itemize}
+\item {\bf Name}: nome do objeto a ser identificado.
+\item {\bf Truncated}: informa se o objeto é visível parcialmente na imagem.
+\item {\bf Dificult}: indica se o objeto é difícil de detectar.
+\item {\bf Bounding box}: coordenadas do {\it bounding boxe}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{Pascal VOC Dataset}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/pascal_xml.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Datasets}{Pascal VOC vs COCO Dataset Format}
+As principais diferenças entre os formatos são:
+\begin{itemize}
+\item Pascal VOC usa anotações no formato XML, um arquivo XML por imagem.
+\item COCO Dataset utiliza um único arquivo JSON para armazenar as anotações.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Albumentations Format}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Albumentations Format}
+\begin{itemize}
+\item O formato Albumentations é similar ao Pascal VOC.
+\item Difere em relação às coordenadas do bounding boxes, pois utiliza valores normalizados.
+\item Para normalizar os valores, divide-se as coordenadas em pixels dos eixos x e y pela altura e largura da imagem.
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Fonte: \url{https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Bounding Boxes Format}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/bbox_formats.jpg}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Fonte: \url{https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{YOLO Format}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{YOLO Format}
+\begin{itemize}
+\item O formato YOLO utiliza um arquivo TXT.
+\begin{itemize}
+\item YOLO refere-se ao modelo de mesmo nome.
+\end{itemize}
+\item Cada arquito .TXT possui anotações referentes a uma imagem.
+\item As anotações possuem o seguinte formato:
+\begin{verbatim}
+<object-class> <x> <y> <width> <height>
+\end{verbatim}
+\item Para cada objeto presente na imagem, um linha é criada.
+\begin{verbatim}
+0 45 55 29 67
+1 99 83 28 44
+\end{verbatim}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Annotations Tools}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Annotations Tools}
+Algumas ferramentas gratuitas para anotação:
+\begin{enumerate}
+\item \href{https://www.makesense.ai/}{MakeSense.AI}
+\item \href{https://github.com/tzutalin/labelImg}{LabelImg}
+\item \href{https://gitlab.com/vgg/via}{VGG image annotator}
+\item \href{http://labelme.csail.mit.edu/Release3.0/}{LabelMe}
+\item \href{https://scalabel.ai/}{Scalable}
+\item \href{https://rectlabel.com/}{RectLabel}
+\end{enumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referencias}
+\begin{itemize}
+\item COCO and Pascal VOC data format for Object detection
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/coco-data-format-for-object-detection-a4c5eaf518c5}
+  \end{itemize}  
+\item Image Data Labelling and Annotation ? Everything you need to know
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/image-data-labelling-and-annotation-everything-you-need-to-know-86ede6c684b1}
+  \end{itemize}  
+\item Annotate Your Image - Using Online Annotation Tool!
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/annotate-your-image-using-online-annotation-tool-52d0a742daff}
+  \end{itemize}    
+\item COCO Dataset
+  \begin{itemize}
+  \item \url{https://cocodataset.org/}
+  \end{itemize}
+\item Pascal VOC Dataset
+  \begin{itemize}
+  \item \url{http://host.robots.ox.ac.uk/pascal/VOC/}
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referencias}
+\begin{itemize}
+\item Preparing Custom Dataset for Training YOLO Object Detector
+  \begin{itemize}
+  \item \url{https://www.visiongeek.io/2019/10/preparing-custom-dataset-for-training-yolo-object-detector.html}
+  \end{itemize}  
+\item Image Data Labelling and Annotation ? Everything you need to know
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/image-data-labelling-and-annotation-everything-you-need-to-know-86ede6c684b1}
+  \end{itemize}        
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Extra: Convertion Tools}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convertion Tools}
+Algumas ferramentas/tutoriais para  conversão entre os formatos:
+\begin{itemize}
+\item How To Convert COCO JSON to Pascal VOC XML
+  \begin{itemize}
+  \item \url{https://roboflow.com/convert/coco-json-to-pascal-voc-xml}
+  \end{itemize}  
+\item How To Convert Pascal VOC XML to COCO JSON
+  \begin{itemize}
+  \item \url{https://roboflow.com/convert/pascal-voc-xml-to-coco-json}
+  \end{itemize}       
+\item How To Convert Pascal VOC XML to YOLO Darknet TXT
+  \begin{itemize}
+  \item \url{https://roboflow.com/convert/pascal-voc-xml-to-yolo-darknet-txt}
+  \end{itemize}        
+\item How to Convert PASCAL VOC to YOLO Darknet Annotations without GitHub Code 
+  \begin{itemize}
+  \item \url{https://nanoml.org/blog/How-to-Convert-PASCAL-VOC-to-YOLO-Darknet-Annotations-without-GitHub-Code-0000000001.php }
+  \end{itemize}        
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\end{document}

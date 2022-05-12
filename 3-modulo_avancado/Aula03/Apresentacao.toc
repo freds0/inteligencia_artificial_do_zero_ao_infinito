@@ -1,0 +1,11 @@
+\babel@toc {portuges}{}
+\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{COCO Dataset}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Pascal VOC Dataset}{5}{0}{1}
+\beamer@sectionintoc {2}{Annotations Format}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{COCO Format}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Pascal VOC Format}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{Albumentations Format}{17}{0}{2}
+\beamer@subsectionintoc {2}{4}{YOLO Format}{19}{0}{2}
+\beamer@sectionintoc {3}{Annotations Tools}{20}{0}{3}
+\beamer@sectionintoc {4}{Extra: Convertion Tools}{23}{0}{4}

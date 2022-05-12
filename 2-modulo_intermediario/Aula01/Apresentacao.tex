@@ -1,0 +1,1229 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\usepackage{amsmath,array}
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\usepackage{listings}
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Insert code directly in your document}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+
+
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Introducão do modelo Perceptron}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Quem sou Eu}
+%\begin{columns}[T] % align columns
+%\begin{column}{.30\textwidth}
+%{\bf Frederico S. Oliveira}
+%\begin{figure}[h]
+%\includegraphics[width=3.5cm]{imgs/perfil.png}
+%\end{figure}
+%\end{column}%
+%\hfill%
+%\begin{column}{.64\textwidth}
+%\begin{itemize}
+%\item Bacharel e Mestre em Ciência da Computação (UFLA). 
+%\item Doutorando em Inteligência Artificial (UFG). 
+%\item Professor UFMT.
+%\item \href{http://ww.fredso.com.br}{http://www.fredso.com.br}
+%\item fred.santos.oliveira@gmail.com
+%\item \href{https://www.linkedin.com/in/fred-santos-oliveira/}{https://www.linkedin.com/in/fred-santos-oliveira/}
+%\end{itemize}
+%\end{column}%
+%
+%\end{columns}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{O que aprenderei neste Curso?}{Módulo Intermediário}
+%\begin{itemize}
+%\item Introdução às Redes Neurais proporcionando ao aluno uma base em aprendizagem profunda e redes neurais.
+%\item Implementação de gradiente descendente e retropropagação em Python. Treinamento de redes neurais proporcionando ao aluno o aprendizado de técnicas para melhorar o treinamento de uma rede neural, tais como: early-stopping, regularização e dropout.
+%\item Aprender os princípios básicos das camadas de uma rede neural convolucional (CNN): convolutional, maxpooling e fully-connected. 
+%\item Apresentação dos princípios básicos sobre as principais arquiteturas CNN para detecção e segmentação de imagens.
+%\item Duração Estimada: 6 aulas
+%\end{itemize}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{O que aprenderei neste Curso?}{Módulo Avançado}
+%\begin{itemize}
+%\item Junto com os alunos, realizar a Criação e Treinamento de Modelos de Visão Computacional (Apenas os Modelos de Segmentação Semântica) da Solução CyberLabs Eletrobras Furnas de ``Detecção de Distância entre Vegetação e Linhas de Transmissão via Segmentação de Imagens aéreas e Reconstrução 3D via Lidar''.
+%\item Duração Estimada: 6 aulas
+%\end{itemize}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Objetivos}
+Na aula de hoje, nosso objetivo é:
+\begin{itemize}
+\item Apresendar o modelo Perceptron.
+\item Compreender e implementar o Neurônio Artificial.
+%\item Entender o processo de treinamento de uma rede reural ({\it feedforward} e {\it backpropagation})
+%\item Compreender os efeitos dos hiperparâmetros no treinamento (qtde. de camadas, qtde. de nerônios, {\it learning rate}, {\it momentum},, etc).
+%\item Dominar as principais técnicas de regularização (regularização L1/L2, {\it learning rate decay}, {\it early stopping},  {\it dropout} {\it batch normalization}).
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}
+\begin{figure}[h]
+\includegraphics[width=7cm]{imgs/ai_ml_dl.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/ml_vs_traditional_paradigm2.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://sravya-tech-usage.medium.com/traditional-programming-vs-machine-learning-e9bbed5e491c}{Traditional Programming vs Machine Learning}.}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}{Crescimento DL x ML x AI}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/growth_ml_dl_ai.png}
+\end{figure}
+\tiny{Número de publicações sobre deep learning (DL), machine learning (ML), ou artificial intelligence (AI), de acordo com Google Scholar (GS) e Web of Science (WOS). Source: \href{https://www.researchgate.net/figure/Explosive-growth-of-the-scientific-literature-on-deep-learning-and-related-topics-The_fig2_343507862}{A Bird's-Eye View of Deep Learning in Bioimage Analysis}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/performance_dl_ml_data.png}
+\end{figure}
+\tiny{Source: \href{https://www.researchgate.net/publication/344774931_Offline_Arabic_Handwriting_Recognition_Using_Deep_Learning_Comparative_Study}{Offline Arabic Handwriting Recognition Using Deep Learning: Comparative Study}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}{Supervised x Unsupervised}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/ml_supervised_unsupervised.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}{Supervised x Unsupervised}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/supervised_vs_unsupervised.jpg}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais}{Regression x Classification}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/regression_vs_classification.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Perceptron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Rede Neural Artificial}
+\begin{itemize}
+\item Rede Neural Artificial (RNA) é uma abstração da rede neural biológica presente no cérebro humano.
+\item A versão artificial é inspirada na forma como as redes neurais biológicas processam informações.
+\item O primeiro modelo foi apresentado em 1943, por Warren McCulloch e Walter Pitts.
+\end{itemize}
+\vspace{2cm}
+\tiny{Referência: \href{https://www.cs.cmu.edu/~./epxing/Class/10715/reading/McCulloch.and.Pitts.pdf}{Artigo McCulloch e Pitts}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Biológico}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{itemize}
+\item Cada neurônio possui um corpo central, diversos dendritos e um axônio.
+\item Os dendritos recebem sinais elétricos de outros neurônios através das sinapses.
+\item O corpo celular processa a informação e envia para outro neurônio.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth} \
+    \begin{center}
+     \includegraphics[width=1\textwidth]{imgs/neuron.jpg}
+     \end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}
+\begin{itemize}
+\item O Perceptron é um algoritmo clássico para o modelo neural de aprendizagem.
+\item Foi apresentado em 1958 por Frank Rosenblatt.
+\item É incrivelmente simples e funciona surpreendentemente bem.
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Referência: \href{https://safari.ethz.ch/digitaltechnik/spring2019/lib/exe/fetch.php?media=neurodynamics1962rosenblatt.pdf}{Livro Frank Rosenblatt}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}
+\begin{itemize}
+\item É formado por um único neurônio que recebe entradas numéricas.
+\begin{itemize}
+\item $n$ entradas, 1 saída
+\end{itemize}
+\item Pondera cada entrada por um peso (ou sinapse).
+\begin{itemize}
+\item Realiza um somatório das entradas ponderadas.
+\end{itemize}
+\item Verifica se a soma atinge um limiar.
+\begin{itemize}
+\item Utiliza função de ativação denominada {\bf Step}.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}
+Uma RNA é um componente que calcula a soma ponderada de vários {\it inputs}, aplica uma função e passa o resultado adiante.
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/perceptron1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Perceptron}{Problemas Linearmente Separáveis}
+%Problemas Linearmente Separáveis x Problemas Não-Linearmente Separáveis
+%\begin{figure}[h]
+%\includegraphics[width=9cm]{imgs/linear_separable.png}
+%\end{figure}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Perceptron}
+%
+%\begin{figure}[h]
+%\includegraphics[width=8cm]{imgs/perceptron.png}
+%\end{figure}
+%
+%\begin{equation}
+%\hat{y} = Sign(\sum_i w_i x_i + b)\nonumber 
+%\end{equation}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}{Step Function}
+\begin{equation}
+  Step(x)=\begin{cases}
+    1, & \text{se $x\geq 0$}.\nonumber \\
+    0, & \text{caso contrário}. \nonumber
+  \end{cases}
+\end{equation}
+
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/step_function.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}
+A saída do Perceptron é definida como uma combinação linear da entrada $x$ e dos pesos $w$.
+\[
+w = 
+\left[
+  \begin{array}{c}
+     w_{1}  \\
+     w_{2}  \\
+     \vdots \\
+     w_{m}  \\  
+  \end{array}
+\right],
+x = 
+\begin{bmatrix}
+           x_{1} \\
+           x_{2} \\
+           \vdots \\
+           x_{m}
+         \end{bmatrix}
+\]
+
+O valor de $z$ é dado por:
+\begin{equation}
+z = w_1 x_1 + w_2 x_2 + ... + x_m x_m \nonumber
+\end{equation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}
+
+É necessário incluir um valor $w_0$, chamado {\it bias}, que será multiplicado por $x_0=1$.
+\begin{equation}
+z = w_0 x_0 + w_1 x_1 + ... + w_m x_m \nonumber
+\end{equation}
+
+que pode ser escrito da seguinte forma:
+
+\begin{equation}
+z = \sum_{i=0}^{m} w_i x_i \nonumber
+\end{equation}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}
+
+O valor final é obtido a partir da função {\it step}.
+
+\begin{equation}
+  \phi(x)=\begin{cases}
+    1, & \text{se $x\geq 0$}.\nonumber \\
+    0, & \text{caso contrário}. \nonumber
+  \end{cases}
+\end{equation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}
+
+O resultado da função {\it step} é usado para separar as classes de um problema.
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/perceptron_step5.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}
+
+Na notação matricial, fica da seguinte forma:
+
+\begin{equation}
+\hat{y} = \phi (W^T x  + b) \nonumber
+\end{equation}
+
+em que:
+
+\begin{itemize}
+\item $w \in R^N$ é um parâmetro, denominado {\bf pesos} do modelo. 
+\item {\bf b} é o bias do modelo.
+\item $\phi$ é denominada {\bf função de ativação}, em que no perceptron é utilizada a função {\it step}.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}{Loss}
+
+O {\it erro}, denominado {\bf loss}, é calculado da seguinte forma:
+\begin{equation}
+e = y - \hat{y} \nonumber
+\end{equation}
+
+O objetivo do perceptron é obter erro igual a zero.
+
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ $y$ & $\hat{y}$ & Loss \\ \hline 
+ +1 & +1 & 0 \\ 
+ +1 & -1 & 2 \\ 
+ -1 & -1 & 0 \\ 
+ -1 & +1 & -2 \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Perceptron}{Treinamento}
+\
+\begin{itemize}
+\item O aprendizado do perceptron é feito atualizando os pesos baseado na {\it loss}. 
+\item Para cada amostra classificada errôneamente, o vetor de pesos é atualizado da seguinte forma:
+
+
+\begin{equation}
+w_{t+1} = w_{t} - \alpha Loss(\hat{y}, y) \nonumber
+\end{equation}
+
+\item O parâmetro $\alpha$ é denominada {\bf taxa de aprendizagem} (em inglês {\it learning rate}), e define em quanto os pesos serão corrigidos.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}{Learning Rate}
+\begin{itemize}
+\item A {\bf taxa de aprendizado} $\alpha$ tem grande influência durante o processo de treinamento da rede neural.
+\item Um valor muito baixo torna o aprendizado da rede muito lento
+\item Ao passo que uma valor muito alto provoca oscilações no treinamento e impede a convergência do processo de aprendizado.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}{Learning Rate}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/learning_rate.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}{Learning Rate}
+\begin{itemize}
+\item Todo o processo de aprendizagem é repetido, até que o modelo tenha convergido.
+\item O total de repetições é denominado {\bf número de épocas} e também é um parâmetro definido pelo usuário.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Perceptron}
+%A saída do Perceptron é definida como uma combinação linear da entrada $x$ e dos pesos $w$.
+%\begin{figure}[h]
+%\includegraphics[width=6cm]{imgs/perceptron_step1.png}
+%\end{figure}
+%
+%O valor de $z$ é dado por:
+%
+%\begin{figure}[h]
+%\includegraphics[width=5cm]{imgs/perceptron_step2.png}
+%\end{figure}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Perceptron}
+%
+%É necessário incluir um valor $w_0$, chamado {\it bias}, que será multiplicado por $x_0=1$.
+%\begin{figure}[h]
+%\includegraphics[width=9cm]{imgs/perceptron_step3.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Perceptron}
+%
+%O valor final é obtido a partir da função {\it step}.
+%\begin{figure}[h]
+%\includegraphics[width=6cm]{imgs/perceptron_step4.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Perceptron}
+\begin{algorithm}[H]
+\caption{Treinamento Perceptron} 
+\Entrada{$X = \{ (x_1, ... x_m)\}$ $y = \{y_1, ... y_m\}  \}$}
+\Saida{$W$}
+\Inicio{
+ \tcp{Inicializa $W$ e $b$ com valores aleatórios}
+  $W = [w_1, ..., w_m]$ \\
+  $b = [w_0]$ \\
+  \Repita {$n$ épocas} {
+    %\Para {($i \leftarrow 1 \textrm{ até } n$} {
+    \Para {cada amostra $x_i \in X$} {
+        $\hat{y_i} \leftarrow \phi(w_i x_i + b)$ \\ 
+        L $\leftarrow (y_i - \hat{y_i})$  \\
+		$w_i \leftarrow w_i - \alpha L $ \\
+		$b \leftarrow b - \alpha L$ \\		
+     }
+  }
+}
+\end{algorithm}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Perceptron}
+%\begin{figure}[h]
+%\includegraphics[width=12cm]{imgs/quote-talk-is-cheap-show-me-the-code-linus-torvalds.jpg}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Implementação}
+\centering
+\huge{Implementação em Python}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Implementação}
+\centering
+\huge{Implementação em Python utilizando Numpy}
+
+\end{frame}
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}[fragile]{Perceptron em Python}
+%\begin{lstlisting}[basicstyle=\tiny]	
+%import random
+%class Perceptron():
+%    def __init__(self):
+%        self.weights = []
+%        
+%    def predict(self, row):
+%        activation = self.weights[0]
+%        for weight, feature in zip(self.weights[1:], row):
+%            activation = activation + weight*feature
+%        if activation >= 0.0:
+%            return 1.0
+%        return 0.0
+%\end{lstlisting}
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://github.com/yacineMahdid/artificial-intelligence-and-machine-learning/blob/master/deep-learning-from-scratch-python/perceptron.ipynb}{
+%Deep Learning from Scratch in Python (Sourcecode)}}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}[fragile]{Perceptron em Python}
+%\begin{lstlisting}[basicstyle=\tiny]
+%    def fit(self, X, y, learning_rate = 0.01, num_iteration = 100):
+%        num_row = len(X)
+%        num_feature = len(X[0]) 
+%        
+%        for i in range(num_feature+1):
+%            self.weights.append(random.uniform(0,1))
+%        
+%        for i in range(num_iteration):
+%            r_i = random.randint(0,num_row-1)
+%            row = X[r_i]
+%            yhat = self.predict(row)
+%            error = (y[r_i] - yhat)
+%            self.weights[0] = self.weights[0] + learning_rate*error
+%
+%            for f_i in range(num_feature):
+%                self.weights[f_i] = self.weights[f_i] + learning_rate*error*row[f_i]
+%        
+%\end{lstlisting}
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://github.com/yacineMahdid/artificial-intelligence-and-machine-learning/blob/master/deep-learning-from-scratch-python/perceptron.ipynb}{
+%Deep Learning from Scratch in Python (Sourcecode)}}
+%\end{frame}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}[fragile]{Perceptron com Numpy}
+%\begin{lstlisting}[basicstyle=\tiny]
+%import numpy as np
+%import random
+%class Perceptron():
+%    def __init__(self):
+%        self.weights = []
+%        
+%    def predict(self, row):
+%            
+%        activation = self.weights[0]
+%        
+%        for weight, feature in zip(self.weights[1:], row):
+%            activation = activation + weight*feature
+%            
+%        if activation >= 0.0:
+%            return 1.0
+%        return 0.0
+%\end{lstlisting}
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://maviccprp.github.io/a-perceptron-in-just-a-few-lines-of-python-code/}{A Perceptron in just a few Lines of Python Code}}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%\begin{frame}[fragile]{Perceptron com Numpy}
+%\begin{lstlisting}[basicstyle=\tiny]
+%    def fit(self, X, y, learning_rate = 0.01, num_iteration = 100):
+%        
+%        (num_row, num_feature) = X.shape
+%        self.weights = np.random.rand(num_feature+1) 
+%
+%        for i in range(num_iteration):
+%
+%            r_i = random.randint(0,num_row-1)
+%            row = X[r_i,:]
+%            yhat = self.predict(row)
+%            error = (y[r_i] - yhat) # estimate of the gradient
+%            self.weights[0] = self.weights[0] + learning_rate*error*1 # first weight one is the bias
+%
+%            for f_i in range(num_feature):
+%                self.weights[f_i] = self.weights[f_i] + learning_rate*error*row[f_i]
+%                
+%\end{lstlisting}
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://maviccprp.github.io/a-perceptron-in-just-a-few-lines-of-python-code/}{A Perceptron in just a few Lines of Python Code}}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Neurônio Artificial}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}
+\begin{itemize}
+\item Composta por apenas um neurônio:
+\begin{itemize}
+\item N entradas, 1 saída
+\item Função de ativação: {\it sigmoid}
+\item Função de custo: entropia cruzada ({\it cross-entropy})
+\end{itemize}
+\item Por definição, é um classificador binário
+\item Introduz não-linearidade ao Perceptron
+\item Pequenas mudanças nos parâmetros, causam pequenas mudanças na saída.
+\item Não é utilizado para fazer regressão linear
+\item Utiliza o Gradiente Descendente.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Sigmoid Function}
+\begin{equation}
+f(x) = \frac{1}{1+e^{-x}} \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/logistic_function1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Binary Cross Entropy}
+Função Custo:
+\begin{equation}
+J(z) = -1 \frac{1}{N} \sum_i^{N} y_i \log (\hat{y_i}) + (1 - y_i) \log (1 - \hat{y_i}) \nonumber
+\end{equation}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Binary Cross Entropy}
+\begin{equation}
+J(z) = -1 \frac{1}{N} \sum_i^{N} y_i \log (\hat{y_i}) + (1 - y_i) \log (1 - \hat{y_i}) \nonumber
+\end{equation}
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||c c c||} 
+ \hline
+ $y$ & $\hat{y}$ & $J$ \\ [0.5ex] 
+ \hline\hline
+ 0 & 0 &  \\ 
+ 0 & 1 &  \\
+ 1 & 0 &  \\
+ 1 & 1 &  \\
+ \hline
+ \end{tabular}
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Binary Cross Entropy}
+\begin{equation}
+J(z) = -1 \frac{1}{N} \sum_i^{N} y_i \log (\hat{y_i}) + (1 - y_i) \log (1 - \hat{y_i}) \nonumber
+\end{equation}
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||c c c||} 
+ \hline
+ $y$ & $\hat{y}$ & $J$ \\ [0.5ex] 
+ \hline\hline
+ 0 & 0 & 0 \\ 
+ 0 & 1 & $\infty$    \\
+ 1 & 0 & $\infty$ \\
+ 1 & 1 & 0 \\
+ \hline
+ \end{tabular}
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Logistic Function}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/binary-cross-entropy-terms.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Binary Cross Entropy}
+Para calcular a derivada da Função de Custo é necessário substituir a expressão:
+\begin{equation}
+\log(\hat{y}) = \log \frac{1}{1 + e^{-z}} = \log(1) -log(1+e^{-z}) = - \log (1 + e^{-z}) \nonumber
+\end{equation}
+Com isso, a derivada da função de custo $J(z)$ é:
+\begin{equation}
+\frac{\partial }{\partial w} J(z) = \sum(y_i - \hat{y_i}) x_i \nonumber
+\end{equation}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}
+\begin{algorithm}[H]
+\caption{Treinamento Neurônio Artificial} 
+\Entrada{$X = \{ (x_1, ... x_m)\}$ $y = \{y_1, ... y_m\}  \}$}
+\Saida{$W$}
+\Inicio{
+ \tcp{Inicializa $W$ e $b$ com valores aleatórios}
+  $W = [w_1, ..., w_m]$ \\
+  $b = [w_0]$ \\
+  \Repita {$n$ épocas} {
+    %\Para {($i \leftarrow 1 \textrm{ até } n$} {
+    \Para {cada amostra $x_i \in X$} {
+        $\hat{y_i} \leftarrow sigmoid(w_i x_i + b)$ \\ 
+        $J \leftarrow (y_i - \hat{y_i})$  \\
+		$w_i \leftarrow w_i - \alpha \frac {\partial J} {\partial w}  $ \\
+		$b \leftarrow b - \alpha \frac {\partial J} {\partial w}$ \\		
+     }
+  }
+}
+\end{algorithm}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Funções de Ativação}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}
+\centering
+\huge{Funções de Ativação}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+\begin{itemize}
+\item O propósito de se utilizar uma função de ativação é adicionar {\bf não-linearidade} à NN.
+\item Introduzem uma etapa adicional no processo de {\it propagação}.
+\begin{itemize}
+\item Mas seu uso vale a pena!
+\end{itemize}
+\item A escolha da função de ativação tem grande impacto na capacidade e performance da NN.
+\begin{itemize}
+\item Diferentes funções de ativações podem ser utilizadas em diferentes partes do modelo.
+\end{itemize}
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/activation_function_intro.png}
+\end{figure}
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{Linear}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf Linear}:
+\begin{itemize}
+\item Chamada de {\it função identidade}.
+\item Varia de $- \infty$ a $+\infty$.
+\item Utilizada na camada de saída de um problema de {\bf regressão}.
+\item Desvantagens:
+\begin{itemize}
+\item Não é possível utilizar {\it backpropagation}, pois a derivada é uma constante.
+\item Várias camadas utilizando função linear podem ser substituídas por uma única camada.
+\end{itemize}
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y = f(x) \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_linear.png}
+\end{figure}
+\begin{equation}
+\frac{\partial y}{\partial x} = 1 \nonumber
+\end{equation}
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{Sigmoid}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf Sigmoid}:
+\begin{itemize}
+\item Conhecida como {\it função logística}
+\item Utilizada para {\it regressão logística} (classificação)
+\item Varia de 0 a 1.
+\item A saída é interpretada como a probabilidade de uma amostra pertencer a determinada classe
+\item Desvantagens:
+\begin{itemize}
+\item Ocorre dissipação do gradiente.
+\item Convergência lenta
+\item Saída não é centrada em zero.
+\end{itemize}
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y = \frac{1}{1+ e^{-x}} \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_sigmoid.png}
+\end{figure}
+\begin{equation}
+\frac{\partial y}{\partial x} = y(1-y) \nonumber
+\end{equation}
+
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{Tanh}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf Tanh}:
+\begin{itemize}
+\item Significantemente melhor do que a Sigmoide.
+\item Varia de -1 a 1.
+\item A saída é centrada em zero.
+\item Ocorre uma menor dissipação do gradiente.
+\end{itemize}
+
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y = \frac{e^x - e^{-x}}{e^x + e^{-x}} \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_tanh.png}
+\end{figure}
+\begin{equation}
+\frac{\partial y}{\partial x} = 1-y^2 \nonumber
+\end{equation}
+
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{ReLU}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf ReLU}:
+\begin{itemize}
+\item Função de atviação mais usada.
+\item Varia de 0 a $+\infty$.
+\item Vantagens:
+\begin{itemize}
+\item Simples e eficiente.
+\item Evita o problema de dissipação do gradiente.
+\item Melhora a convergência
+\end{itemize}
+\item Desvantagens:
+\begin{itemize}
+\item Utilizada nas camadas ocultas.
+\item Pode matar alguns neurônios.
+\end{itemize}
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y = max(0, x) \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_relu.png}
+\end{figure}
+\begin{equation}
+  \frac{\partial y}{\partial x} = \begin{cases}
+    0, & \text{se } x \leq 0.\nonumber \\
+    1, & \text{se } x > 0. \nonumber
+  \end{cases}
+\end{equation}
+
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{Leaky ReLU}
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf Leaky ReLU}:
+\begin{itemize}
+\item Pequena variação da ReLU.
+\item Varia de $- \infty$ a $+\infty$.
+\begin{equation}
+  y = \begin{cases}
+    \alpha x, & \text{se } x \leq 0.\nonumber \\
+    x, & \text{se } x > 0. \nonumber
+  \end{cases}
+\end{equation}
+\item Vantagens:
+\begin{itemize}
+\item Reduz a possibilidade de ``matar'' neurônios.
+\end{itemize}
+\item Desvantagens:
+\begin{itemize}
+\item Deve ser utilizada apenas nas camadas ocultas.
+\end{itemize}
+\end{itemize}
+
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y = max(0, x) \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_leaky_relu.png}
+\end{figure}
+\begin{equation}
+  \frac{\partial y}{\partial x} = \begin{cases}
+    \alpha, & \text{se } x \leq 0.\nonumber \\
+    1, & \text{se } x > 0. \nonumber
+  \end{cases}
+\end{equation}
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{eLU}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf eLU}:
+\begin{itemize}
+\item É uma pequena variação da ReLU.
+\item Varia de $- \infty$ a $+\infty$.
+\begin{equation}
+  y = \begin{cases}
+    \alpha (e^x - 1) & \text{se } x \leq 0.\nonumber \\
+    x, & \text{se } x > 0. \nonumber
+  \end{cases}
+\end{equation}
+\item Vantagens:
+\begin{itemize}
+\item Reduz a possibilidade de ``matar" neurônios.
+\end{itemize}
+\item Desvantagens:
+\begin{itemize}
+\item Deve ser utilizada apenas nas camadas ocultas.
+\end{itemize}
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_elu.png}
+\end{figure}
+\begin{equation}
+  \frac{\partial y}{\partial x} = \begin{cases}
+    y + \alpha, & \text{se } x \leq 0.\nonumber \\
+    1, & \text{se } x > 0. \nonumber
+  \end{cases}
+\end{equation}
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/melhor_funcao_ativacao.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Funções de Ativação}{Softmax}
+%
+%\begin{columns}[T] % align columns
+%\begin{column}{.60\textwidth}
+%Função de Ativação {\bf Softmax}:
+%\begin{itemize}
+%\item Utilizada para {\bf classificação multiclasse}
+%\item Pode-se interpretar sua saída como a {\bf confiança} de uma amostra pertencer a uma classe.
+%\begin{itemize}
+%\item Confiança $\neq$ Probabilidade
+%\end{itemize}
+%\item Saída deve estar no formato {\bf one-hot enconding}
+%\begin{itemize}
+%\item a saída de um neurônio depende dos outros neurônios de saída.
+%\end{itemize}
+%
+%\end{itemize}
+%\end{column}%
+%\hfill%
+%
+%\begin{column}{.40\textwidth}
+%\begin{equation}
+%y_i (x) = \frac{ e^{x_i}}{\sum_{k=1}^{K} e^{x_i}} \nonumber
+%\end{equation}
+%\begin{figure}[h]
+%\includegraphics[width=5cm]{imgs/funcao_ativacao_softmax.png}
+%\end{figure}
+%\begin{equation}
+%y \in [0, 1], \sum y_i = 1 \nonumber
+%\end{equation}
+%\end{column}%
+%
+%\end{columns}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Funções de Ativação}{One-Hot Encoding}
+%\begin{figure}[h]
+%\includegraphics[width=12cm]{imgs/one_hot_encoding.png}
+%\end{figure}
+%\end{frame}
+%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{Referências}
+\begin{itemize}
+\item \href{https://machinelearningmastery.com/choose-an-activation-function-for-deep-learning/}{How to Choose an Activation Function for Deep Learning}
+\item \href{https://towardsdatascience.com/activation-functions-neural-networks-1cbd9f8d91d6}{Activation Functions in Neural Networks}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Funções Custo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}
+\centering
+\huge{Funções de Custo}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}
+\begin{itemize}
+\item {\it Loss} se aplica para um único elemento do conjunto de treinamento.
+\item Custo se refere a {\it Loss} calculada sobre todo o conjunto de treinamento ({\it mini-batch}).
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/loss_vs_cost.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/loss_regressao.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Funções Custo}
+%\begin{figure}[h]
+%\includegraphics[width=7cm]{imgs/loss_classificacao_binaria.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}{Binary Cross Entropy}
+\begin{eqnarray}
+J(\hat{y}, y) = \frac{-1}{m} \sum_{i=1}^{m} y_i \log (\hat{y_i}) + (1 - y_i)(\log (1 - \hat{y})) \nonumber
+\end{eqnarray}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}{Binary Cross Entropy}
+\begin{eqnarray}
+J(\hat{y}, y) &=& \frac{-1}{m} \sum_{i=1}^{m} y_i \log (\hat{y_i}) + (1 - y_i)(\log (1 - \hat{y})) \nonumber \\
+\frac{\partial{J(\hat{y}, y)}}{\partial{w}} &=& ? \nonumber
+\end{eqnarray}
+% https://math.stackexchange.com/questions/2503428/derivative-of-binary-cross-entropy-why-are-my-signs-not-right
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções Custo}{Binary Cross Entropy}
+Usando a regra da cadeia:
+\begin{eqnarray}
+\frac{\partial{J(w)}}{\partial{w}} &=& \frac{\partial{J(w)}}{\partial{z}}  \frac{\partial{z}}{\partial{h}} \frac{\partial{h}}{\partial{w}} \nonumber
+\end{eqnarray}
+% https://math.stackexchange.com/questions/2503428/derivative-of-binary-cross-entropy-why-are-my-signs-not-right
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Funções Custo}
+%\begin{figure}[h]
+%\includegraphics[width=11cm]{imgs/loss_classificacao_multiclasse.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Funções Custo}
+%\begin{table}[]
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%                                     & Regressão &  Class. Binária & Class. Multiclasse \\ \hline
+%\#Neurônios                          & \#outputs & 1 & \#classes   \\ \hline 
+%F. de Ativação                   & Linear & Sigmoid & Linear  \\ \hline 
+%F. de Custo                      & MSE, MAE, SSE,... & Cross Entropy & Softmax + Neg. Log-Likelihood  \\ \hline 
+%\end{tabular}
+%\end{table}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item \href{https://www.deeplearningbook.com.br/o-perceptron-parte-1/}{
+Deep Learning Book - Perceptron}
+
+\item \href{https://machinelearningmastery.com/implement-perceptron-algorithm-scratch-python/}{
+How To Implement The Perceptron Algorithm From Scratch In Python}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

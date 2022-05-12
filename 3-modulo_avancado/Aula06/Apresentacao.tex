@@ -1,0 +1,289 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Modelos YOLO}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Arquiteturas}
+\begin{itemize}
+\item {\bf R-CNN} (Regions with Convolutional Network)
+\item {\bf Fast-RCNN}
+\item {\bf Faster-RCNN}
+\item {\bf MobilNet}
+\item {\bf SSD}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{YOLO - You Only Look Once}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}
+\begin{itemize}
+\item {YOLO - You Only Look Once} é uma rede neural {\it end-to-end} que utiliza uma estratégia diferentes dos demais algoritmos.
+\item Divide uma imagem em um {\it grid} $S \times S$, e cada célula do gir pode predizer 2 bounding boxes
+\item Utiliza uma rede separada para predizer as {\it Region Proposals}
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://machinelearningmastery.com/object-recognition-with-deep-learning/}{A Gentle Introduction to Object Recognition With Deep Learning}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/yolo_strategy.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/yolov1-you-only-look-once-object-detection-e1f3ffec8a89}{Review: YOLOv1 - You Only Look Once (Object Detection)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Architecture}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/yolo_architecture.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/yolov1-you-only-look-once-object-detection-e1f3ffec8a89}{Review: YOLOv1 - You Only Look Once (Object Detection)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Exemplo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example1.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example2.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example3.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example4.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example5.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example6.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example7.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example8.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example9.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example10.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example11.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example12.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{YOLO - You Only Look Once}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=15cm]{imgs/yolo_example13.png}
+\end{figure}
+
+%\vspace{1mm}
+\tiny{Fonte: \href{https://web.cs.ucdavis.edu/~yjlee/teaching/ecs289g-winter2018/YOLO.pdf}{Prof. Yong Jae Lee's Presentation)}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Próximas Arquiteturas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Arquiteturas}
+\begin{itemize}
+\item {\bf RetinaNet}
+\item {\bf SqueezeDet}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referencias}
+\begin{itemize}
+\item YOLO Explained
+  \begin{itemize}
+  \item \url{https://medium.com/analytics-vidhya/yolo-explained-5b6f4564f31}
+  \end{itemize}  
+\item Understanding YOLO and YOLOv2
+  \begin{itemize}
+  \item \url{https://manalelaidouni.github.io/Understanding\%20YOLO\%20and\%20YOLOv2.html}
+  \end{itemize}  
+\item YOLO V3 Explained
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/yolo-v3-explained-ff5b850390f}
+  \end{itemize}    
+\item Explanation of YOLO V4 a one stage detector
+  \begin{itemize}
+  \item \url{https://becominghuman.ai/explaining-yolov4-a-one-stage-detector-cdac0826cbd7}
+  \end{itemize}
+\item Introduction to YOLOv5 Object Detection with Tutorial
+  \begin{itemize}
+  \item \url{https://machinelearningknowledge.ai/introduction-to-yolov5-object-detection-with-tutorial/}
+  \end{itemize}
+\item Your Comprehensive Guide to the YOLO Family of Models
+  \begin{itemize}
+  \item \url{https://blog.roboflow.com/guide-to-yolo-models/}
+  \end{itemize}  
+ \item YOLOv5, End-to-End object detector project on custom dataset
+  \begin{itemize}
+  \item \url{https://towardsdatascience.com/yolov5-end-to-end-object-detector-project-on-custom-dataset-5d9cc2c95921}
+  \end{itemize}   
+ 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\end{document}

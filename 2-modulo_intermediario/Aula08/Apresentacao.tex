@@ -1,0 +1,556 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Arquiteturas Baseadas em CNNs \\Parte 2}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Relembrando...}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/desafio_imagenet.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Convoluçao}
+Arquitetura antes do conceito de deep learning
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/arquitetura_antes_convolucao.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Convoluçao}
+Arquitetura convolucional
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/arquitetura_convolucional.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Convoluçao}
+Arquitetura convolucional
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/arquitetura_convolucional1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{AlexNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{AlexNet}
+Relembrando as camadas:
+
+\begin{itemize}
+\item Entrada $224 \times 224 \times 3$
+\item Primeiro filtro $11 \times 11 \times 3$
+\item Filtros convolucionais menores a medida que aumenta a profundidade
+\item Ex. $5 \times 5$, $3 \times 3$
+\end{itemize}
+
+O que acontece se usarmos apenas filtros pequenos? Por ex. $3 \times 3$?
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{VGGNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{VGGNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/VGGNet_configuration.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{VGGNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/vgg16.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{VGGNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/caracteristicas_vgg.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{VGGNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/going_deeper.jpg}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{GoogLeNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x11.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x12.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x13.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x14.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Conv $1 \times 1$}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/correlacao_conv_1x15.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+Inception Module v1
+\begin{itemize}
+\item E se inseríssemos todos os filtros em uma única camada?
+\item Filtros convolucionais em paralelo com campos receptivos diferentes.
+\end{itemize}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/googlenet_inception_module_v1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+Inception Module v1
+\begin{itemize}
+\item Usa filtros $1 \times 1$ para redução da dimensionalidade antes de operações de ``alto custo'' antes das convolucões maiores.
+\end{itemize}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/googlenet_inception_module1_v1.jpg}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+Convolução $1 \times 1$ 
+\begin{itemize}
+\item Reduz o esforço computacional antes de filtros $3 \times 3$ e $5 \times 5$.
+\item Inclui o uso de ReLU.
+\item Exemplo:
+\begin{itemize}
+\item Entrada de 256 mapas de filtros $56 \times 56$.
+\item Inserção de camada $1 \times 1 \times 64$.
+\item $56 \times 56 \times 256 \rightarrow 56 \times 56 \times 64$ (redução de $4 \times$).
+\end{itemize}
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://iamaaditya.github.io/2016/03/one-by-one-convolution/}{One by One [ $1 \times 1$ ] Convolution - counter-intuitively useful}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/googlenet_architecture.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1409.4842}{Going Deeper with Convolutions}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/googlenet_architecture_inception_module.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1409.4842}{Going Deeper with Convolutions}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/googlenet_architecture_auxiliary_classifier.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1409.4842}{Going Deeper with Convolutions}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}{Inception v2}
+\begin{itemize}
+\item {\bf Inception v2} introduziu a fatoração (fatorar convoluções em convoluções menores) e algumas pequenas alterações no {\it Inception v1} .
+\item As convoluções 7x7 tradicionais foram fatoradas em três convoluções 3x3.
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1512.00567v1.pdf}{Rethinking the Inception Architecture for Computer Vision}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{GoogLeNet}{Inception v3}
+
+\begin{itemize}
+\item {\bf Inception v3} é uma variante do {\it Inception v2} que adiciona BN-auxiliar.
+\item BN auxiliar refere-se à versão em que a camada totalmente conectada do classificador auxiliar também é normalizada, não apenas convoluções.
+\item Portanto, o modelo {\it Inception-v3} trata-se do [Inception-v2 + BN auxiliar].
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1512.00567v1.pdf}{Rethinking the Inception Architecture for Computer Vision}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Winning}
+\begin{figure}[h]
+\includegraphics[width=3.3cm]{imgs/winning_imagenet.jpg}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://www.inference.vc/deep-learning-is-easy/}{Deep Learning is Easy - Learn Something Harder}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vanishing Gradient Problem}
+\begin{frame}{Vanishing Gradient Problem}
+\begin{itemize}
+\item Quanto mais camadas se adiciona em uma rede, menor ficam os gradientes utilizados para atualização dos pesos durante a etapa de {\it back propagation}.
+\item Isso dificulta o treinamento de redes neurais muito profundas, contrário ao que se imaginava.
+\item Esse problema é chamado de {\bf Vanishing Gradient Problem}
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Vanishing Gradient Problem}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/vanishing_gradient_sigmoid_tanh.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/why-rectified-linear-unit-relu-in-deep-learning-and-the-best-practice-to-use-it-with-tensorflow-e9880933b7ef}{Why Rectified Linear Unit (ReLU) in Deep Learning and the best practice to use it with TensorFlow}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Vanishing Gradient Problem}
+
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/vanishing_gradient_problem_andrew_ng.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.youtube.com/watch?v=ZILIbUvp5lk}{DeepLearningAI - C4W2L03 Resnets - Andrew Ng}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ResNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ResNet}{Problema}
+Empilhar convoluções $3 \times 3$ funcionava bem até 20/30 camadas.
+
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/test_error_number_layers.png}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1512.03385.pdf}{Deep Residual Learning for Image Recognition}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{ResNet}
+\begin{itemize}
+\item O modelo {\bf ResNet} propõe uma solução muito simples: introduzir um ``atalho'' entre as camadas.
+\item Dessa forma, os erros de treinamento não aumentarão, pois o que foi aprendido nas camadas anteriores não é perdido.
+\item E como a informação `flui'' diretamente pelo atalho, evita o {\it Vanishing Gradient Problem}.
+\end{itemize}
+
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1512.03385.pdf}{Deep Residual Learning for Image Recognition}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ResNet}
+Os ``atalhos'' são chamados de {\bf módulos residuais} ou {\it skip connections}.
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/residual_block.png}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Fonte: \href{https://d2l.ai/chapter_convolutional-modern/resnet.html}{Dive into Deep Learning Book}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ResNet}
+
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/resnet_architecture.png}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Fonte: \href{https://lapix.ufsc.br/ensino/visao/visao-computacionaldeep-learning/deep-learningreconhecimento-de-imagens/}{UFSC: Deep Learning::Reconhecimento de Imagens}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ResNet}{Vanishing Gradient Problem}
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/vanishing_gradient_problem_andrew_ng1.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.youtube.com/watch?v=ZILIbUvp5lk}{DeepLearningAI - C4W2L03 Resnets - Andrew Ng}}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{DenseNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+\begin{itemize}
+\item O modelo {\bf DenseNet} é muito similar ao ResNet, com algumas diferenças fundamentais.
+\item Utiliza uma estratégia aditiva, que combina a saída da camada anterior com a saída da próxima camada.
+\item As saídas das camadas são concatenadas, aumentando a profundidade da informação extraída.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1608.06993.pdf}{Densely Connected Convolutional Networks}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+Nas CNNs tradicionais, a imagem de entrada passa por múltiplas convoluções e obtém {\it features} de alto nível.
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+
+Nas {\bf ResNet} utiliza-se soma elemento-a-elemento ({\it element-wise}), o que faz com que a informação flua de um módulo para outro.
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block1.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+
+Na {\bf DenseNet}, a saída de cada camada é conectada com todas as camadas posteriores, utilizando concatenação.
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block2.png}
+\end{figure}
+
+Dessa forma, cada camada recebe um ``conhecimento coletivo'' de todas as camadas precedentes.
+
+\vspace{2mm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block4.png}
+\end{figure}
+
+\vspace{1mm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+Uma taxa de crescimento $k$ é o número de camadas que são adicionadas em cada camada.
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block3.png}
+\end{figure}
+
+Como cada camada recebe {\it features} de todas as camadas precedentes, a rede pode apresentar um menor número de canais.
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/densenet_block5.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{DenseNet}
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/resnet_vs_densenet.png}
+\end{figure}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803}{Review: DenseNet - Dense Convolutional Network }}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item \href{https://arxiv.org/abs/1409.4842}{Going Deeper with Convolutions}
+\item \href{https://arxiv.org/pdf/1512.00567v1.pdf}{Rethinking the Inception Architecture for Computer Vision}
+\item \href{https://arxiv.org/pdf/1512.03385.pdf}{Deep Residual Learning for Image Recognition}
+\item \href{https://arxiv.org/pdf/1608.06993.pdf}{Densely Connected Convolutional Networks}
+\item \href{hhttps://arxiv.org/pdf/1508.06576.pdf}{A Neural Algorithm of Artistic Style}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

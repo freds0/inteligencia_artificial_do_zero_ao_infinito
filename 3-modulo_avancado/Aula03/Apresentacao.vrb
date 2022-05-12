@@ -1,0 +1,17 @@
+\frametitle{YOLO Format}
+\begin{itemize}
+\item O formato YOLO utiliza um arquivo TXT.
+\begin{itemize}
+\item YOLO refere-se ao modelo de mesmo nome.
+\end{itemize}
+\item Cada arquito .TXT possui anotações referentes a uma imagem.
+\item As anotações possuem o seguinte formato:
+\begin{verbatim}
+<object-class> <x> <y> <width> <height>
+\end{verbatim}
+\item Para cada objeto presente na imagem, um linha é criada.
+\begin{verbatim}
+0 45 55 29 67
+1 99 83 28 44
+\end{verbatim}
+\end{itemize}

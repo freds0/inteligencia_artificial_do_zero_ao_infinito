@@ -1,0 +1,897 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Introducão ao Multi-Layer Perceptron}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{Revisão}
+Na aula anterior:
+\begin{itemize}
+\item Modelo Perceptron.
+\item Neurônio Artificial (Sigmoid)
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Neurônio Artificial}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/artificial_neuron.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Neurônio Artificial}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/artificial_neuron1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Neurônio Artificial}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/artificial_neuron2.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Neurônio Artificial}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/activation_function_sigmoid.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Revisão}{Neurônio Artificial}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/artificial_neuron3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/artificial_neuron_example.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/artificial_neuron_example1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/artificial_neuron_example2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/artificial_neuron_example3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Resumo}
+\begin{itemize}
+\item Neurônios Artificiais são {\it inspirados} nos neurônios biológicos.
+\item Transformam um entrada em uma saída usando uma {\it função de ativação}.
+\item É uma unidade computacional própria para resolver problemas simples.
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Neurônio Artificial}{Exemplo Keras}
+\centering
+
+\huge{Exemplo Prático com Keras}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multi-Layer Perceptron}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{itemize}
+\item O {\bf Multi-Layer Perceptron} é formado por camadas compostas de neurônios artificiais.
+\item Pode trabalhar com problemas mais complexos.
+\item O treinamento é feito utilizando o algoritmo {\it Back Propagation}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp4.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+O processo de treinamento envolve três etapas:
+\begin{itemize}
+\item Feed Forward
+\item Back Propagation
+\item Descending Gradient 
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}
+Envolve três cálculos:
+\begin{itemize}
+\item {\it Weights} (Pesos a serem calculados)
+\item {\it Net Input} (Soma das entradas ponderadas)
+\item {\it Activation} (Saída da função de ativação)
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Feed Foward}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Weights}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp5.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Weights}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mlp6.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Net Input} 
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp7.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Net Input} 
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp8.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Net Input} 
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp9.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Net Input} 
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp10.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Activation}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp11.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+{\it Activation}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp12.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+1ª Camada
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp13.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+2ª Camada
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp14.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Feed Forward}
+3ª Camada
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp15.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Exemplo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\centering
+\huge{Exemplo}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_sample.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mlp_sample1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_sample2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample4.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample5.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample6.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample7.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample8.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample9.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample10.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample11.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mlp_sample12.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_sample13.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Back Propagation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_training_process.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Processo de Treinamento}
+%\begin{enumerate}
+%\item Obtém uma predição
+%\begin{itemize}
+%\item {\it feed forward}
+%\end{itemize}
+%\item Calcula o erro
+%\begin{itemize}
+%\item {\it função loss}
+%\end{itemize}
+%\item Calcula o gradiente 
+%\begin{itemize}
+%\item {\it back propagation}
+%\end{itemize} 
+%\item Atualiza os pesos
+%\begin{itemize}
+%\item {\it gradiente descendente}
+%\end{itemize}
+%\end{enumerate}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Processo de Treinamento}
+\begin{columns}[T] % align columns
+\begin{column}{.6\textwidth}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_training_process1.png}
+\end{figure}
+\end{column}%
+\hfill%
+\begin{column}{.4\textwidth}
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/mlp_training_process3.png}
+\end{figure}
+\end{column}%
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Processo de Treinamento}
+\begin{columns}[T] % align columns
+\begin{column}{.6\textwidth}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_training_process2.png}
+\end{figure}
+\end{column}%
+\hfill%
+\begin{column}{.4\textwidth}
+\begin{figure}[h]
+\includegraphics[width=4cm]{imgs/mlp_training_process4.png}
+\end{figure}
+\end{column}%
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Obter Predição}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_get_prediction.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Obter Predição}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_get_prediction1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Obter Predição}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_get_prediction2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Calcula o erro}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/mlp_error_calculate.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Calcula o erro}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mlp_error_calculate1.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_back_propagation.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=11cm]{imgs/mlp_back_propagation1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/mlp_back_propagation2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_back_propagation3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_back_propagation_final1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/mlp_back_propagation_final2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Back Propagation}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_back_propagation37.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Descending Gradient}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Descending Gradient}
+\begin{itemize}
+\item O {\bf Gradiente Descendente} é um algoritmo de otimização usado para treinar redes neurais.
+\item Sua função é encontrar um conjunto de parâmetros que minimizam uma função custo.
+\item É usado quando os parâmetros não podem ser calculados analiticamente e devem ser encontrados por um algoritmo de otimização.
+\end{itemize}
+
+\vspace{3cm}
+\tiny{Referência: \href{https://machinelearningmastery.com/gradient-descent-for-machine-learning/}{https://machinelearningmastery.com/gradient-descent-for-machine-learning/}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Processo de Treinamento}{Descending Gradient}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/mlp_gradient_descent3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Descending Gradient}{Pseudo-Código}
+\begin{algorithm}[H]
+\caption{Gradiente Descendente Estocástico} 
+\label{perceptron}
+\Entrada{$\vec{x} = \{ (x_1, ... x_n)\}$ $\vec{y} = \{y_1, ... y_n\}  \}$}
+\Saida{$\vec{w}$}
+\Inicio{
+ %\tcp{Inicializa os pesos}
+  Inicializa $\vec{w}$ e $b$ com valores aleatórios; \\
+  \Repita {$n$ épocas} {
+    \Para {cada amostra ($x_i, y_i$) de ($\vec{x}, \vec{y}$)} {
+    	Calcule $\hat{y}_i \leftarrow \vec{w} x_i + b$; \\
+        Calcule a Loss: $\mathcal{L}_i \leftarrow L(\hat{y}_i, y_i)$; \\ 
+		Calcule o gradiente: $\Delta w \leftarrow - \nabla \mathcal{L}_i (w); \Delta b \leftarrow -  \frac{ \partial \mathcal{L}_i } {\partial b} $ ;\\
+ 	    \tcp{Atualiza os parâmetros}
+		$w \leftarrow w + \alpha \Delta w$ ; $b \leftarrow b + \alpha \Delta b$; \\		
+     }
+  }
+}
+\end{algorithm}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Layer Perceptron}{Exemplo Keras}
+\centering
+
+\huge{Exemplo Prático com Keras}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Descending Gradient}{Variações}
+\begin{itemize}
+\item {\bf Gradiente Descendente Estocástico}
+\begin{itemize}
+\item A atualização dos coeficientes é realizada para cada instância de treinamento.
+\item {\it Batch-Size} $= 1$.
+\item Na versão verdadeiramente estocástica a amostra extraída é devolvida ao conjunto.
+\end{itemize}
+\item {\bf Gradiente Descendente em Lote}
+\begin{itemize}
+\item A atualização dos coeficientes é realizada após o cálculo da {\it Loss} de todas as instâncias de treinamento.
+\item {\it Batch-Size} igual ao tamanho do conjunto de treinamento.
+\item É chamado {\it Batch Gradient Descent} ou {\it Vanilla Gradient Descent}.
+\end{itemize}
+\item {\bf Gradiente Descendente em Mini-Lote}
+\begin{itemize}
+\item A atualização dos coeficientes é realizada após o cálculo da {\it Loss} de um conjunto de instâncias de treinamento.
+\item Quanto maior o tamanho do {\it Batch-Size} mais estável é o treinamento.
+\end{itemize}
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Referência: \href{https://sebastianraschka.com/faq/docs/sgd-methods.html}{https://sebastianraschka.com/faq/docs/sgd-methods.html}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Descending Gradient}{Exemplo Keras}
+\centering
+
+\huge{Exemplo Prático: Analisando o impacto do tamanho do batch}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Multi-Class Problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Class Problem}
+\begin{itemize}
+\item Em problemas de classificação binária utiliza-se a função {\it Sigmoid} como função de ativação 
+\item A função Sigmoide produz como saída um valor entre zero e um.
+\item Como função Loss, utiliza-se a {\it Binary Cross Entropy}.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Class Problem}
+\begin{itemize}
+\item Para problemas {\bf multiclasse}, utiliza-se a função {\it Softmax} como função de ativação.
+\item A função Softmax estende o conceito da função Sigmoid para problemas multiclasse.
+\item Softmax atribui uma probabilidade (entre 0 e 1) para cada classe sendo que o somatório é igual a 1.
+\end{itemize}
+\vspace{1cm}
+\tiny{Referência: \href{https://developers.google.com/machine-learning/crash-course/multi-class-neural-networks/softmax}{Multi-Class Neural Networks: Softmax}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Class Problem}{Softmax}
+
+\begin{columns}[T] % align columns
+\begin{column}{.60\textwidth}
+Função de Ativação {\bf Softmax}:
+\begin{itemize}
+\item Utilizada para {\bf classificação multiclasse}
+\item Pode-se interpretar sua saída como a {\bf confiança} de uma amostra pertencer a uma classe.
+\begin{itemize}
+\item Confiança $\neq$ Probabilidade
+\end{itemize}
+\item Saída deve estar no formato {\bf one-hot enconding}
+\begin{itemize}
+\item a saída de um neurônio depende dos outros neurônios de saída.
+\end{itemize}
+
+\end{itemize}
+\end{column}%
+\hfill%
+
+\begin{column}{.40\textwidth}
+\begin{equation}
+y_i (x) = \frac{ e^{x_i}}{\sum_{k=1}^{K} e^{x_i}} \nonumber
+\end{equation}
+\begin{figure}[h]
+\includegraphics[width=5cm]{imgs/funcao_ativacao_softmax.png}
+\end{figure}
+\begin{equation}
+y \in [0, 1], \sum y_i = 1 \nonumber
+\end{equation}
+\end{column}%
+
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Funções de Ativação}{One-Hot Encoding}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/one_hot_encoding.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Class Problem}{Categorical Cross Entropy}
+\begin{itemize}
+\item A função Loss {\it Categorical Cross Entropy} é adequada para problemas de classificação multi-classe.
+\item Seu cálculo é dado pela seguinte fórmula:
+\end{itemize}
+
+\begin{equation}
+J(z) = \frac{-1}{N} \sum_j^{M} \sum_i^{N} y_{ij} \log (\hat{y_{ij}}) + (1 - y_{ij}) \log (1 - \hat{y_{ij}}) \nonumber	
+\end{equation}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Multi-Class Problem}{Exemplo Keras}
+\centering
+
+\huge{Exemplo Prático com Keras e Iris dataset}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Learning Rate}{Exemplo Keras}
+\begin{itemize}
+\item A {\bf taxa de aprendizagem} é um hiperparâmetro configurável usado no treinamento de redes neurais que possui um pequeno valor (entre 0,0 e 1,0).
+\item Valores menores requerem mais {\it épocas} de treinamento devido às mudanças menores feitas nos pesos a cada atualização.
+\item Valores maiores resultam em mudanças rápidas e requerem menos períodos de treinamento.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Learning Rate}{Exemplo Keras}
+\begin{itemize}
+\item O desafio de treinar redes neurais de aprendizado profundo envolve a seleção cuidadosa da taxa de aprendizado.	
+\item Uma taxa de aprendizado muito grande pode fazer com que o modelo convirja muito rapidamente para uma solução abaixo do ideal,
+\item Um valor muito pequeno pode fazer com que o processo de aprendizado pare.
+\end{itemize}
+\vspace{1cm}
+\tiny{Referência: \href{https://www.deeplearningbook.com.br/o-efeito-da-taxa-de-aprendizagem-no-treinamento-de-redes-neurais-artificiais/}{https://www.deeplearningbook.com.br/o-efeito-da-taxa-de-aprendizagem-no-treinamento-de-redes-neurais-artificiais/}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Learning Rate}{Exemplo Keras}
+\centering
+
+\huge{Exemplo Prático: Analisando o impacto do valor da taxa de aprendizagem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Gradiente Descendente}{Momentum}
+%\begin{itemize}
+%\item {\bf Momentum} é um técnica para impulsionar o treinamento do Gradiente Descendente.
+%\item Consiste em acumular os gradientes das iterações anteriores e o utilizar para atualizar os pesos.
+%\end{itemize}
+%
+%\begin{eqnarray}
+%\Delta w & \leftarrow& - \nabla \mathcal{L}_i (w); \nonumber \\
+%v & \leftarrow&  v * \textrm{momentum} + \alpha \Delta w; \nonumber \\
+%w &\leftarrow& w + v ; \nonumber
+%\end{eqnarray}
+%
+%\vspace{1cm}
+%\tiny{Referência: \href{https://keras.io/api/optimizers/sgd/}{https://keras.io/api/optimizers/sgd/}}
+%\end{frame}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Gradiente Descendente}{Momentum}
+%\begin{figure}[h]
+%\includegraphics[width=9cm]{imgs/sgd_with_momentum.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Redes Neurais Multicamadas}{Referências}
+\begin{itemize}
+\item Neural networks: training with backpropagation.
+\begin{itemize}
+\item \href{https://www.jeremyjordan.me/neural-networks-training/}{https://www.jeremyjordan.me/neural-networks-training/}
+\end{itemize}
+\item A Step by Step Backpropagation Example
+\begin{itemize}
+\item \href{https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/}{https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/}
+\end{itemize}
+\item Deep Learning Book: Capítulo 37 - O Efeito do Batch Size no Treinamento de Redes Neurais Artificiais
+\begin{itemize}
+\item \href{https://www.deeplearningbook.com.br/o-efeito-do-batch-size-no-treinamento-de-redes-neurais-artificiais/}{https://www.deeplearningbook.com.br/o-efeito-do-batch-size-no-treinamento-de-redes-neurais-artificiais/}
+\end{itemize}
+\item Deep Learning Book: Capítulo 38 - O Efeito da Taxa de Aprendizagem no Treinamento de Redes Neurais Artificiais
+\begin{itemize}
+\item \href{https://www.deeplearningbook.com.br/o-efeito-da-taxa-de-aprendizagem-no-treinamento-de-redes-neurais-artificiais/}{https://www.deeplearningbook.com.br/o-efeito-da-taxa-de-aprendizagem-no-treinamento-de-redes-neurais-artificiais/}
+\end{itemize}
+\item Google Tensorflow Playground
+\begin{itemize}
+\item \href{http://playground.tensorflow.org/}{http://playground.tensorflow.org/}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

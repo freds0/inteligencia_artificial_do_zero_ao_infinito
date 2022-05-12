@@ -1,0 +1,240 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage{listings}
+
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Introducão à Regressão Linear}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Quem sou Eu}
+%\begin{columns}[T] % align columns
+%\begin{column}{.30\textwidth}
+%{\bf Frederico S. Oliveira}
+%\begin{figure}[h]
+%\includegraphics[width=3.5cm]{imgs/perfil.png}
+%\end{figure}
+%\end{column}%
+%\hfill%
+%\begin{column}{.64\textwidth}
+%\begin{itemize}
+%\item Bacharel e Mestre em Ciência da Computação (UFLA). 
+%\item Doutorando em Inteligência Artificial (UFG). 
+%\item Professor UFMT.
+%\item \href{http://ww.fredso.com.br}{http://www.fredso.com.br}
+%\item fred.santos.oliveira@gmail.com
+%\item \href{https://www.linkedin.com/in/fred-santos-oliveira/}{https://www.linkedin.com/in/fred-santos-oliveira/}
+%\end{itemize}
+%\end{column}%
+%
+%\end{columns}
+%\end{frame}
+
+
+\begin{frame}{O que aprenderei neste Curso?}{Módulo Intermediário}
+\begin{itemize}
+\item Introdução às Redes Neurais proporcionando ao aluno uma base em aprendizagem profunda e redes neurais.
+\item Implementação de gradiente descendente e retropropagação em Python. Treinamento de redes neurais proporcionando ao aluno o aprendizado de técnicas para melhorar o treinamento de uma rede neural, tais como: early-stopping, regularização e dropout.
+\item Aprender os princípios básicos das camadas de uma rede neural convolucional (CNN): convolutional, maxpooling e fully-connected. 
+\item Apresentação dos princípios básicos sobre as principais arquiteturas CNN para detecção e segmentação de imagens.
+\item Duração Estimada: 5 aulas
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Objetivos}
+Na aula de hoje, nosso objetivo é:
+\begin{itemize}
+\item Aprender os conceitos básicos sobre {\bf Regressão linear}.
+\item Realizar experimentos utilizando a biblioteca {\it SKlearn}.
+\item Primeiro contato com a biblioteca {\it Tensorflow-Keras}.
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Regressão Linear}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Regressão Linear}
+\begin{itemize}
+\item Regressão Linear é dos primeiros modelos estatísticos que se tem contato ao estudar {\it machine learning}.
+\item É uma equação para se estimar um alvo (variável $y$ ou dependente), dados os valores de outras variáveis (variáveis $x$ ou independentes).
+\item Um algoritmo simples, mas que usado com os parâmetros corretos é capaz de oferecer uma grande capacidade preditiva somente com a relação das suas variáveis.
+\end{itemize}
+% https://medium.com/@lamartine_sl/regress%C3%A3o-linear-com-sklearn-modelo-de-previs%C3%A3o-de-custos-com-plano-de-sa%C3%BAde-5e963e590f4c
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Regressão Linear}
+\begin{itemize}
+\item A regressão linear pode ser definida pela estatística como uma equação que busca estimar o(s) valor(es) de $y$, dados uma ou mais variáveis $x$. 
+
+\begin{equation}
+y = a + b X \nonumber
+\end{equation}
+\item Assim $y$ é a variável dependente de $x$, $a$ é o coeficiente linear e $b$ é o coeficiente angular.
+\end{itemize}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Regressão Linear}
+Cálculo de $a$ e $b$:
+\begin{equation}
+b = \frac{cov(X, Y)}{var(X)} \nonumber
+\end{equation}
+
+\begin{equation}
+a = \bar{Y} - b \bar{X} \nonumber
+\end{equation}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Regressão Linear}
+\begin{figure}[t]
+\includegraphics[width=8cm]{imgs/linear_reg.jpg}
+\centering
+\end{figure}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Regressão Linear}
+\begin{itemize}
+\item A variável a que vai definir o deslocamento da reta e a variável b que vai definir a inclinação da reta.
+\end{itemize}
+\begin{figure}[t]
+\includegraphics[width=8cm]{imgs/linear_regression.png}
+\centering
+\end{figure}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Regressão Linear Múltipla}
+Na Regressão Linear Múltipla há mais variáveis, gerando a equação:
+\begin{equation}
+y = b_0 + b_1 X_1 + b_2 X_2 + ... + b_k X_k +e \nonumber
+\end{equation}
+em que $e$ é o erro aleatório.
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Regressão Linear}
+\begin{itemize}
+\item O erro é dado por $e$, que é a diferença entre a saída original e a saída prevista pelo modelo
+
+\begin{figure}[t]
+\includegraphics[width=6cm]{imgs/mae.png}
+\centering
+\end{figure}
+
+\item Essa diferença pode ser positiva ou negativa e isso vai influenciar na análise de erro, por isso é normal analisar o {\it erro médio absoluto}, o {\it erro quadrático médio} e o {\it coeficiente de determinação}.
+\end{itemize}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Regressão Linear}{Erro Médio Absoluto}
+\begin{itemize}
+\item O erro médio absoluto (MAE) é a média da soma de todos os erros;
+\item A sua análise sofre uma interferência devido aos erros positivos e negativos se anularem.
+\end{itemize}
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Regressão Linear}{Erro Quadrado Médio}
+\begin{itemize}
+\item O erro quadrado médio (MSE) é a média da soma de todos os erros elevados ao quadrado;
+\item As diferenças elevadas ao quadrados resolve o problema de os erros positivos e negativos se anulam, sendo mais preciso que o MAE.
+\end{itemize}
+
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{Regressão Linear}{Coeficiente de Determinação (R2 Score)}
+\begin{itemize}
+\item O coeficiente de Determinação ($R^2$) varia entre 0 e 1 e expressa a quantidade da variância dos dados que é explicada pelo modelo linear. 
+\item Por exemplo, $R^2 = 0,56$ significa que o modelo consegue prever 56\% da variância total dos dados.
+\end{itemize}
+
+% https://dadosaocubo.com/regressao-com-scikit-learn/
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item \href{https://proeducacional.com/ead/curso-cga-modulo-i/capitulos/capitulo-4/aulas/analise-de-regressao-linear/}{Análise de Regressão Linear}
+\item \href{https://towardsdatascience.com/introduction-to-machine-learning-algorithms-linear-regression-14c4e325882a}{Introduction to Machine Learning Algorithms: Linear Regression}
+\item \href{https://www.dataquest.io/blog/understanding-regression-error-metrics/}{Tutorial: Understanding Regression Error Metrics in Python}
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

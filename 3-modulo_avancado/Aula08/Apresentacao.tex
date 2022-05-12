@@ -1,0 +1,180 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Modelos em Producão}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{TF Serving}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{TF Serving}
+\begin{itemize}
+\item Podemos disponibilizar um modelo para Object Detection utilizando o framework  {\bf TF Serving}.
+\item TF Serving é um sistema de serviço flexível e de alto desempenho para modelos de aprendizado de máquina, projetado para ambientes de produção. 
+\item Facilita a implantação de novos algoritmos e fornece integração imediata com os modelos do TensorFlow.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.tensorflow.org/tfx/guide/serving}{Documentação Oficial Tensorflow}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{TF Serving}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/tf_serving_architecture.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.freecodecamp.org/news/how-to-deploy-an-object-detection-model-with-tensorflow-serving-d6436e65d1d9/}{How to deploy an Object Detection Model with TensorFlow serving}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{TF Serving}
+\begin{itemize}
+\item Assumindo que você treinou um modelo para {\it object detection} utilizando o Tensorflow, os {\it checkpoints} terão a seguinte formato:
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/tf_model_checkpoints.png}
+\end{figure}
+
+\item Você pode utilizar esses arquivos para inferência, no entanto, não são adequados para o ambiente de produção.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://www.freecodecamp.org/news/how-to-deploy-an-object-detection-model-with-tensorflow-serving-d6436e65d1d9/}{How to deploy an Object Detection Model with TensorFlow serving}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]{TF Serving}
+\begin{itemize}
+\item Podemos converter o modelo para um {\it frozen graph}, que contém a arquitetura do modelo e os pesos em um único arquivo.
+\item Para isso, utilize o script {\it export.py} presente no \href{https://github.com/freds0/fault_detection_power_transmission_lines}{código de treinamento}:
+\end{itemize}
+\begin{verbatim}
+$ python export.py \
+    --config_file=configs/parameters.yaml \
+    --pipeline_config_file=pipeline_file.config \
+    --checkpoint_dir=checkpoints_folder \
+    --output_export_dir=exported_checkpoints
+\end{verbatim}
+
+\vspace{1cm}
+\tiny{Código: \href{https://github.com/freds0/fault_detection_power_transmission_lines}{https://github.com/freds0/fault\_detection\_power\_transmission\_lines}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{gRPC}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{gRPC}
+\begin{itemize}
+\item Após converter os checkpoints, podemos "servir" o modelo utilizando o TF Serving.
+\item O TF Serving utiliza o protocolo gRPC, desenvolvivo pelo Google.
+\item O gRPC permite que um cliente execute uma função em um servidor remoto
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://grpc.io/}{gRPC - A high performance, open source universal RPC framework}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{gRPC}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/grpc_architecture.jpg}
+\end{figure}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{gRPC}
+\begin{itemize}
+\item O gRPC utiliza {\it Protocol Buffers} para serializar os dados.
+\item Dessa forma, os dados ficam menores quando comparados com JSON e XML.
+\item Assim, é necessário definir uma interface que utilize esse protocolo.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://grpc.io/}{gRPC - A high performance, open source universal RPC framework}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Aplicação}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Aplicação}
+\begin{itemize}
+\item A aplicação é dividida em {\it backend} e {\it frontend}.
+\item No {\it backend} tem-se uma aplicação TF-Serving aguardando chamadas na porta 5000.
+\item No {\it frontend} tem-se uma aplicação Web rodando na porta 8000.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Código: \href{https://github.com/freds0/flask_fault_detection_power_transmission_lines}{https://github.com/freds0/flask\_fault\_detection\_power\_transmission\_lines}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referencias}
+\begin{itemize}
+\item Documentação Oficial Tensorflow
+  \begin{itemize}
+  \item \url{https://www.tensorflow.org/tfx/guide/serving2}
+  \end{itemize}
+\item How to deploy an Object Detection Model with TensorFlow serving
+  \begin{itemize}
+  \item \url{https://www.freecodecamp.org/news/how-to-deploy-an-object-detection-model-with-tensorflow-serving-d6436e65d1d9/}
+  \end{itemize}  
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\end{document}

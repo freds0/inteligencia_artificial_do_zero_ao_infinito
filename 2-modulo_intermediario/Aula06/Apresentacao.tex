@@ -1,0 +1,222 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Arquiteturas Baseadas em CNNs \\Parte 1}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \frametitle{Agenda}
+  \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{CNN Architectures}
+\begin{itemize}
+\item A arquitetura básica de um modelo convolucional é composta por uma etapa de {\it extração de features} e outra de {\it classificação}.
+\item A fase de {\bf extração de features} é formada por filtros convolucionais com função de ativação e max-pooling.
+\item A fase de {\bf classificação} é formada por camadas fully-connected e função de ativação {\it softmax} para classificação.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Introdução}{CNN Architectures}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/cnn_architecture.jpg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/@RaghavPrabhu/understanding-of-convolutional-neural-network-cnn-deep-learning-99760835f148}{Understanding of Convolutional Neural Network (CNN) - Deep Learning} }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{CNN Architectures}{Timeline}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/CNN-Architecture-over-a-timeline.jpg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.aismartz.com/blog/cnn-architectures/}{CNN Architectures Over a Timeline} }
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{LeNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Architectures}{LeNet}
+\begin{itemize}
+\item A primeira aplicação bem-sucedida de redes convolucionais foi apresentada por Yann LeCun em 1998.
+\item Conhecida como {\bf LeNet}, essa rede apresenta 7 camadas, convolucionais e densas.
+\item Foi utilizada para reconhecer os números do CEP em correspondências (MNIST).
+
+\vspace{1cm}
+\tiny{Referência: \href{http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf }{Gradient-Based Learning Applied to Document Recognition} }
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Architectures}{LeNet}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/lenet_ng.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Referência: \href{https://www.coursera.org/learn/convolutional-neural-networks/home/welcome}{Coursera: Convolutional Neural Networks} }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{AlexNet}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Architectures}{AlexNet}
+\begin{itemize}
+\item {\bf AlexNet} é um modelo convolucional proposto em 2012 por Alex Krizhevsky, Ilya Sutskever e Geoffrey Hinton.
+\item Sua arquitetura é formada por 8 camadas: 5 camadas convolucionais e 3 camadas fully-connected.
+\item ImageNet possui $\approx$ 14 milhões de imagens pertencentes a 1000 classes.
+\item O modelo alcançou o melhor 85,7\% de acurácia no Top-5.
+
+\vspace{1cm}
+\tiny{Referência: \href{https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf}{ImageNet Classification with Deep Convolutional Neural Networks} }
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Architectures}{AlexNet}
+Arquitetura AlexNet
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/alexnet.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{VGG16}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Architectures}{VGG16}
+\begin{itemize}
+\item {\bf VGG16} é um modelo convolucional proposto em 2014 por K. Simonyan and A. Zisserman.
+\item Esse modelo alcançou 92,7\% de acurácia no top-5 no dataset ImageNet.
+\item Possui 16 camadas com filtros 3x3 com {\it stride}=1 e {\it padding} seguido de {\it max pooling} 2x2 e 2 camadas {\it fully-connected}.
+
+\vspace{2cm}
+\tiny{Referência: \href{https://arxiv.org/abs/1409.1556}{Very Deep Convolutional Networks for Large-Scale Image Recognition} }
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Architectures}{VGG16}
+Arquitetura VGG16
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/vgg16.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Transfer Learning}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Transfer Learning}
+\begin{itemize}
+\item {\bf Transfer Learning} é uma técnica em que um modelo desenvolvido para uma tarefa é reutilizado como estágio inicial para uma outra tarefa..
+\item É amplamente utilizado nas áreas como visão computacional e NLP, devido ao custo alto para treinamento de modelos, 
+\item Funciona apenas se as {\it features} aprendidas na primeira tarefa forem também adequadas para a segunda tarefa.
+\end{itemize}
+
+\vspace{2cm}
+\tiny{Fonte: \href{https://machinelearningmastery.com/transfer-learning-for-deep-learning/}{A Gentle Introduction to Transfer Learning for Deep Learning} }
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Transfer Learning}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/transfer_learning.png}
+\end{figure}
+
+\vspace{2mm}
+\tiny{Fonte: \href{https://medium.com/@subodh.malgonde/transfer-learning-using-tensorflow-52a4f6bcde3e}{Transfer learning using Tensorflow} }
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item Intuitively Understanding Convolutions for Deep Learning
+\begin{itemize}
+\item \href{https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1}{https://towardsdatascience.com/intuitively-understanding-convolutions-for-deep-learning-1f6f42faee1}
+\end{itemize}
+\item Convolutional Neural Networks, Explained
+\begin{itemize}
+\item \href{https://towardsdatascience.com/convolutional-neural-networks-explained-9cc5188c4939}{https://towardsdatascience.com/convolutional-neural-networks-explained-9cc5188c4939}
+\end{itemize}
+\item Image convolution examples
+\begin{itemize}
+\item \href{https://aishack.in/tutorials/image-convolution-examples/}{https://aishack.in/tutorials/image-convolution-examples/}
+\end{itemize}
+\item Types of Convolution Kernels : Simplified
+\begin{itemize}
+\item \href{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}{https://towardsdatascience.com/types-of-convolution-kernels-simplified-f040cb307c37}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}

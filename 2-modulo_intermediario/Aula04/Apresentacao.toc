@@ -1,0 +1,11 @@
+\babel@toc {portuges}{}
+\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
+\beamer@sectionintoc {2}{Convolu\c c\~ao}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Zero Padding}{22}{0}{2}
+\beamer@subsectionintoc {2}{2}{Stride}{26}{0}{2}
+\beamer@subsectionintoc {2}{3}{Dilatation}{32}{0}{2}
+\beamer@subsectionintoc {2}{4}{Formula}{34}{0}{2}
+\beamer@subsectionintoc {2}{5}{Pooling}{35}{0}{2}
+\beamer@subsectionintoc {2}{6}{Kernel}{41}{0}{2}
+\beamer@subsectionintoc {2}{7}{Channels}{46}{0}{2}
+\beamer@subsectionintoc {2}{8}{Number of Filters}{49}{0}{2}

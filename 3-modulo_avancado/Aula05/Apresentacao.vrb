@@ -1,0 +1,31 @@
+\frametitle{Quem sou Eu}
+\begin{columns}[T] % align columns
+\begin{column}{.05\textwidth}
+
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/bounding_boxes_challenges.png}
+\end{figure}
+
+\end{column}%
+\hfill%
+\begin{column}{.95\textwidth}
+
+\begin{itemize}
+\item Open-source GitHub libraries: \href{https://github.com/aleju/imgaug}{Imgaug}, Augmentator, Albumentations
+\begin{itemize}
+\item Pros: Free, well-documented, good examples
+\item Cons: May become unavailable or stop being maintained
+\end{itemize}
+\item OpenCV has image manipulation functions for manually creating augmentations
+\begin{itemize}
+\item Pros: Free, tight and flexible control over augmentation parameters
+\item Cons: Have to write everything yourself
+\end{itemize}
+\item TensorFlow Object Detection API provides augmentation options to automatically use during preprocessing
+\begin{itemize}
+\item Pros: Free, easy to use (zero-effort)
+\item Cons: Not many operations available, may stack poorly with existing augmentations in dataset
+\end{itemize}
+\end{itemize}
+\end{columns}
+\end{column}%

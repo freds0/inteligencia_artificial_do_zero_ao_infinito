@@ -1,0 +1,8 @@
+\babel@toc {portuges}{}
+\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
+\beamer@sectionintoc {2}{AlexNet}{8}{0}{2}
+\beamer@sectionintoc {3}{VGGNet}{10}{0}{3}
+\beamer@sectionintoc {4}{GoogLeNet}{15}{0}{4}
+\beamer@sectionintoc {5}{Vanishing Gradient Problem}{31}{0}{5}
+\beamer@sectionintoc {6}{ResNet}{35}{0}{6}
+\beamer@sectionintoc {7}{DenseNet}{41}{0}{7}

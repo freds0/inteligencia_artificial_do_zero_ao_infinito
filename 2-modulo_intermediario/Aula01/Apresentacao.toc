@@ -1,0 +1,6 @@
+\babel@toc {portuges}{}
+\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
+\beamer@sectionintoc {2}{Perceptron}{11}{0}{2}
+\beamer@sectionintoc {3}{Neur\^onio Artificial}{30}{0}{3}
+\beamer@sectionintoc {4}{Fun\c c\~oes de Ativa\c c\~ao}{38}{0}{4}
+\beamer@sectionintoc {5}{Fun\c c\~oes Custo}{48}{0}{5}

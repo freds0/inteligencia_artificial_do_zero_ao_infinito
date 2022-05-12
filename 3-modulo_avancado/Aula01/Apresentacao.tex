@@ -1,0 +1,1209 @@
+%\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Boadilla}
+
+%\usetheme{Warsaw}
+%\setbeamercovered{transparent}
+\beamertemplatetransparentcoveredhigh
+\usepackage[portuges]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{hyperref} 
+\usepackage[portuguese, linesnumbered, vlined, titlenumbered, ruled]{algorithm2e}
+
+\newcommand{\eng}[1]{\textsl{#1}}
+\newcommand{\cod}[1]{\texttt{#1}}
+
+\title[Apresentação]{Curso Inteligência Artificial: do Zero ao Infinito}
+\author[Frederico Oliveira]{Deteccão de Objetos: Modelos R-CNN}
+\institute[UFMT]{Universidade Federal de Mato Grosso}
+\date{}
+%\titlegraphic{\includegraphics[width=\textwidth,height=.5\textheight]{imgs/intro.jpeg}}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth]{imgs/intro.jpeg}}
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+\AtBeginSection[]
+{
+	\begin{frame}
+	\frametitle{Agenda}
+	\tableofcontents[currentsection]
+\end{frame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Roteiro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}
+%  \frametitle{Agenda}
+%  \tableofcontents
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introdução}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Introdução}
+\begin{itemize}
+\item {\bf Image Classification} é uma tarefa de atribuir uma classe para uma imagem.
+\item {\bf Object Localization} consiste em localizar um ou mais objetos em uma imagem.
+\item {\bf Objection Detection} combina essas duas tarefas: localizar um ou mais objetos e classificar cada um deles.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://machinelearningmastery.com/object-recognition-with-deep-learning/}{https://machinelearningmastery.com/object-recognition-with-deep-learning/}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Definição da Tarefa}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Entrada: Imagem RGB
+\item Saída: Um conjunto de objetos detectados; para cada objeto, deve-se ter:
+\begin{enumerate}
+\item {\it Label} (categoria) dentro de um conjunto fixo de categorias.
+\item {\it Bounding box} composto por quatro números: x, u, width, height.
+\end{enumerate}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/object_detection_task_definition.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Desafios}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Múltiplas Saídas}: número variável de objetos detectados por imagem.
+\item {\bf Múltiplos tipos de saída}: prediz ``qual'' (label da categoria) e ``onde'' ({\it bounding box}).
+\item {\bf Tamanho} variável de objetos.
+\item {\bf Dimensão}: classificação funciona em imagens de dimensão $224 \times 224$; enquanto que detecção deve funcionar em imagens de alta resolução ($\geq 800 \times 600$).
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/object_detection_task_definition.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Detecting Single Object}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object1.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object2.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object4.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object5.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando um objeto}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_single_object6.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Detecting Multiples Objects}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects4.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects5.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects6.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects7.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Detectando múltiplos objetos}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/detecting_multiples_objects8.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{R-CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}
+\begin{itemize}
+\item Em 2014, no modelo {\bf R-CNN} foi utilizada uma estratégia para definição das regiões de busca e classificação dessas regiões.
+\item Essa estratégia consiste em utilizar heurísticas para encontrar {\it Region Proposals}, que são regiões mais prováveis de conterem um objeto.
+\item Para seleção das {\it Region Proposals}, não é definido um método, mas são apresentados diversas propostas.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1311.2524}{Rich feature hierarchies for accurate object detection and semantic segmentation}}
+\\
+\tiny{Sourcecode: \href{https://github.com/rbgirshick/rcnn}{Official Github}}
+%\tiny{AlexNet: \href{https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf}{ImageNet Classification with Deep Convolutional Neural Networks}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}
+\begin{itemize}
+\item O método mais utilizado para seleção das {\it Region Proposals} é denominado {\it Selective Search}.
+\item Em cada uma dessas regiões aplica-se uma CNN, a AlexNet, para extração das {\it features}, treinada no ImageNet.
+\item Por fim, utiliza-se o SVM como classificador e um regressor neural para prever as {\it bounding boxes}.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1311.2524}{Rich feature hierarchies for accurate object detection and semantic segmentation}}
+\\
+\tiny{Sourcecode: \href{https://github.com/rbgirshick/rcnn}{Official Github}}
+%\tiny{AlexNet: \href{https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf}{ImageNet Classification with Deep Convolutional Neural Networks}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}{Arquitetura}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/r-cnn_architecture.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/@selfouly/r-cnn-3a9beddfd55a}{R-CNN (Object Detection)}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}{Selective Search}
+Algoritmo {\it Selective Search}:
+\begin{enumerate}
+\item Gere sub-segmentos da imagem de entrada.
+\item Recursivamente combine as regiões similares em regiões maiores.
+\begin{itemize}
+\item Dados os conjuntos de regiões, escolha os dois mais similares.
+\item Combine-os em um único conjunto, ou seja, em uma região maior.
+\item Repita os passos anteriores por múltiplas iterações.
+\end{itemize}
+\end{enumerate}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.geeksforgeeks.org/selective-search-for-object-detection-r-cnn/}{Selective Search for Object Detection | R-CNN}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}{Selective Search}
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/selective_search.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://www.geeksforgeeks.org/selective-search-for-object-detection-r-cnn/}{Selective Search for Object Detection | R-CNN}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Region Proposals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Region Proposals}
+\begin{itemize}
+\item Defina um pequeno conjunto de {\it bboxes} que provavelmente cubra todos os objetos.
+\item Utilize heurísticas para procurar por regiões mais prováveis de conter uma imagem.
+\item Execução relativamente rápida: {\it Selective Search} oferece 2k {\it Region Proposals} em poucos segundos na CPU.
+\end{itemize}
+
+\begin{figure}[h]
+\includegraphics[width=12cm]{imgs/region_proposals.png}
+\end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Region Proposals}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Region Proposals}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Region Proposals}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Region Proposals}
+\begin{figure}[h]
+\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn4.png}
+\end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Region Proposals}
+%\begin{figure}[h]
+%\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn5.png}
+%\end{figure}
+%\end{frame}
+%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Region Proposals}
+%\begin{figure}[h]
+%\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn6.png}
+%\end{figure}
+%\end{frame}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Region Proposals}
+%\begin{figure}[h]
+%\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn7.png}
+%\end{figure}
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Region Proposals}
+%\begin{figure}[h]
+%\includegraphics[width=14cm]{imgs/r-cnn_region_based_cnn8.png}
+%\end{figure}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}{Arquitetura}
+A arquitetura do R-CNN é composta por três módulos:
+\begin{enumerate}
+\item {\bf Region Proposal}. Gera e extrai as regiões candidatas a {\it bboxes}.
+\item {\bf Feature Extractor}. Extrai {\it features} de cada região usando uma rede CNN.
+\item {\bf Classificador}. Classifica cada região um modelo linear de classificação (SVM).
+\end{enumerate}
+\begin{figure}[h]
+\includegraphics[width=9cm]{imgs/r-cnn.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/abs/1311.2524}{Rich feature hierarchies for accurate object detection and semantic segmentation}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN}{Desvantagens}
+\begin{itemize}
+\item Alto custo de treinamento.
+\begin{itemize}
+\item Precisa classificar 2000 regiões por imagem.
+\end{itemize} 
+\item Não pode ser implementado em tempo real.
+\begin{itemize}
+\item em média, leva 47s para cada imagem de teste.
+\end{itemize} 
+\item O algoritmo {\it Selective Search} é estático.
+\begin{itemize}
+\item Não há aprendizado na geração das {\it Region Proposals}.
+\end{itemize}
+\item O treinamento não pode ser paralelizado.
+\begin{itemize}
+\item Cada módulo deve ser treinado separadamente.
+\end{itemize}
+\end{itemize}
+
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e}{R-CNN, Fast R-CNN, Faster R-CNN, YOLO - Object Detection Algorithms}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fast R-CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{itemize}
+\item Em 2015, foi proposta a {\bf Fast R-CNN}, com o intuito de corrigir alguns pontos fracos da {\it R-CNN}.
+\item Foram combinados três módulos (CNN, SVM e {\it bbox regressor}) em um, tornando-o um modelo {\it end-to-end}.
+\item Após esse modelo, a R-CNN original ficou conhecida como {\it Slow R-CNN}.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1504.08083.pdf}{Fast R-CNN}}
+\\
+\tiny{Source code: \href{https://github.com/rbgirshick/fast-rcnn}{Official Github}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{itemize}
+\item Nesse modelo, utilizou-se como extrator de {\it features} o modelo VGG16 pré-treinado na ImageNet.
+\item Ao invés de se utilizar SVM, optou-se por duas redes FC para predição dos {\it bboxings} e classificação.
+\item Isso permitiu um menor tempo de treinamento do modelo e também uma melhor acurácia.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1504.08083.pdf}{Fast R-CNN}}
+\\
+\tiny{Source code: \href{https://github.com/rbgirshick/fast-rcnn}{Official Github}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/fast_r-cnn_architecture.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection.}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/fast_r-cnn_region_based_cnn1.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/fast_r-cnn_region_based_cnn2.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/fast_r-cnn_region_based_cnn3.png}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{itemize}
+\item Na {\it R-CNN} são geradas 2k {\it Region Proposals} e cada uma é aplicada à uma CNN extratora de {\it features}.
+\begin{itemize}
+\item Em um dataset com 1k imagens, seriam necessárias 2M ($1000 \times 2000 $) iterações.
+\end{itemize}
+\item Na {\bf Fast R-CNN} a imagem é enviada para a rede CNN uma única vez, criando um {\it features map}.
+\begin{itemize}
+\item A {\it Selective Search} é realizada normalmente, definindo 2K {\it Region Proposals}. 
+\end{itemize}
+\item As {\it Region Proposals} são projetadas no {\it features map} gerado pela CNN, num processo denominado {\bf Region of Interest} (ROI).
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection.}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}{}
+As {\it Region Proposals} são adaptadas num processo de {\it subsampling ratio} e projetadas no {\it features map}.
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/region_of_interest_projection.png}
+\end{figure}
+
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection.}}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}{Region of Interest Pooling}
+Em seguida, é aplicada uma cada de {\it pooling layer}, a fim de obter um tamanho fixo, independente da entrada.
+
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/roi_pooling.png}
+\end{figure}
+
+A saída de tamanho fixo é importante pois será enviada à uma camada FC.
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://medium.com/@selfouly/part-2-fast-r-cnn-object-detection-7303e1988464}{Introduction: Fast R-CNN (Object Detection)} e \href{https://deepsense.ai/region-of-interest-pooling-explained/}{Region of interest pooling explained}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=10cm]{imgs/fast_r-cnn.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://arxiv.org/pdf/1504.08083.pdf}{Fast R-CNN}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{frame}{Fast R-CNN}
+%\begin{figure}[h]
+%\includegraphics[width=8cm]{imgs/fast_r_cnn_comparing.png}
+%\end{figure}
+%
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e}{R-CNN, Fast R-CNN, Faster R-CNN, YOLO - Object Detection Algorithms}}
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{R-CNN vs Fast R-CNN}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/r-cnn_vs_fast_r-cnn.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection.}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Fast R-CNN}
+\begin{itemize}
+\item Nos modelos {\it R-CNN} e {\it Fast R-CNN} o gargalo do modelo está na definição das {\it Region Proposals}.
+\item O algoritmo {\it Selective Search} demora 2s por imagem e executa em CPU.
+\item Isso torna esses modelos inviáveis para aplicações em tempo real.
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e}{R-CNN, Fast R-CNN, Faster R-CNN, YOLO - Object Detection Algorithms}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Faster R-CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Faster R-CNN}
+\begin{itemize}
+\item {\bf Faster R-CNN} eliminou de vez o uso do algoritmo {\it Selective Search} substituindo-o por uma CNN.
+\begin{itemize}
+\item Essa rede CNN é chamada {\it Region Proposal Network} (RPN).
+\end{itemize}
+\item O RPN terá as funções de classificador de regressor.
+\begin{itemize}
+\item Dessa forma, o tempo para definição das {\it Region Proposals} cai de 2s para 10ms por imagem.
+\end{itemize}
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Paper: \href{https://arxiv.org/pdf/1506.01497.pdf}{Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Faster R-CNN}{Region Proposal Network}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/faster_r-cnn_rnp.jpg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/faster-r-cnn-for-object-detection-a-technical-summary-474c5b857b46}{Faster R-CNN for object detection}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Faster R-CNN}{Region Proposal Network}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/faster_r-cnn_archicteture.jpg}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/faster-r-cnn-for-object-detection-a-technical-summary-474c5b857b46}{Faster R-CNN for object detection}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Faster R-CNN}
+%\begin{figure}[h]
+%\includegraphics[width=8cm]{imgs/faster_r_cnn_comparing.png}
+%\end{figure}
+%
+%\vspace{1cm}
+%\tiny{Fonte: \href{https://towardsdatascience.com/r-cnn-fast-r-cnn-faster-r-cnn-yolo-object-detection-algorithms-36d53571365e}{R-CNN, Fast R-CNN, Faster R-CNN, YOLO - Object Detection Algorithms}}
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Faster R-CNN}
+\begin{figure}[h]
+\includegraphics[width=8cm]{imgs/r-cnn_vs_fast_r-cnn_vs_faster_r-cnn.png}
+\end{figure}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://towardsdatascience.com/understanding-fast-r-cnn-and-faster-r-cnn-for-object-detection-adbb55653d97}{Understanding Fast R-CNN and Faster R-CNN for Object Detection.}}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Comparing Boxes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Intersection over Union (IoU)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Como comparar o {\it box} da predição com o {\it box} do {\it ground-truth}?
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/intersection_over_union.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Intersection over Union (IoU)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Como comparar o {\it box} da predição com o {\it box} do {\it ground-truth}?
+\item {\bf Intersection over Union} (IoU): também chamado de ``{\it Similaridade de Jaccard}'' ou ``{\it Jaccard index}''.
+\begin{figure}[h]
+\includegraphics[width=3cm]{imgs/intersection_over_union_formula.png}
+\end{figure}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/intersection_over_union1.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Intersection over Union (IoU)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Como comparar o {\it box} da predição com o {\it box} do {\it ground-truth}?
+\item {\bf Intersection over Union} (IoU): também chamado de ``{\it Similaridade de Jaccard}'' ou ``{\it Jaccard index}''.
+\begin{figure}[h]
+\includegraphics[width=3cm]{imgs/intersection_over_union_formula.png}
+\end{figure}
+\item IoU > 0.5 é ``{\it aceitável}'',
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/intersection_over_union2.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Intersection over Union (IoU)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Como comparar o {\it box} da predição com o {\it box} do {\it ground-truth}?
+\item {\bf Intersection over Union} (IoU): também chamado de ``{\it Similaridade de Jaccard}'' ou ``{\it Jaccard index}''.
+\begin{figure}[h]
+\includegraphics[width=3cm]{imgs/intersection_over_union_formula.png}
+\end{figure}
+\item IoU > 0.5 é ``{\it aceitável}'',
+\item IoU > 0.7 é ``{\it muito bom}'',
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/intersection_over_union3.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Intersection over Union (IoU)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item Como comparar o {\it box} da predição com o {\it box} do {\it ground-truth}?
+\item {\bf Intersection over Union} (IoU): também chamado de ``{\it Similaridade de Jaccard}'' ou ``{\it Jaccard index}''.
+\begin{figure}[h]
+\includegraphics[width=3cm]{imgs/intersection_over_union_formula.png}
+\end{figure}
+\item IoU > 0.5 é ``{\it aceitável}'',
+\item IoU > 0.7 é ``{\it muito bom}'',
+\item IoU > 0.9 é ``{\it quase perfeito}''.
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/intersection_over_union4.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Overlapping Boxes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes: Non-Max Suppression (NMS)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\item {\bf Solução:} pós-processar detecções utilizando {\bf Non-Max Suppression (NMS)}
+\begin{enumerate}
+\item Selecione o {\it box} com maior {\it score}.
+\item Elimine {\it boxes} com baixo {\it score}.
+\begin{itemize}
+\item IoU > threshold (ex. 0.7).
+\end{itemize}
+\item Se restarem {\it boxes}, GOTO 1.
+\end{enumerate}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes: Non-Max Suppression (NMS)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\item {\bf Solução:} pós-processar detecções utilizando {\bf Non-Max Suppression (NMS)}
+\begin{enumerate}
+\item Selecione o {\it box} com maior {\it score}.
+\item Elimine {\it boxes} com baixo {\it score}.
+\begin{itemize}
+\item IoU > threshold (ex. 0.7).
+\end{itemize}
+\item Se restarem {\it boxes}, GOTO 1.
+
+\begin{figure}[h]
+\includegraphics[width=2cm]{imgs/overlapping_boxes_formula.png}
+\end{figure}
+
+\end{enumerate}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes1.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes: Non-Max Suppression (NMS)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\item {\bf Solução:} pós-processar detecções utilizando {\bf Non-Max Suppression (NMS)}
+\begin{enumerate}
+\item Selecione o {\it box} com maior {\it score}.
+\item Elimine {\it boxes} com baixo {\it score}.
+\begin{itemize}
+\item IoU > threshold (ex. 0.7).
+\end{itemize}
+\item Se restarem {\it boxes}, GOTO 1.
+
+\begin{figure}[h]
+\includegraphics[width=2cm]{imgs/overlapping_boxes_formula1.png}
+\end{figure}
+
+\end{enumerate}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes2.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes: Non-Max Suppression (NMS)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\item {\bf Solução:} pós-processar detecções utilizando {\bf Non-Max Suppression (NMS)}
+\begin{enumerate}
+\item Selecione o {\it box} com maior {\it score}.
+\item Elimine {\it boxes} com baixo {\it score}.
+\begin{itemize}
+\item IoU > threshold (ex. 0.7).
+\end{itemize}
+\item Se restarem {\it boxes}, GOTO 1.
+\end{enumerate}
+\end{itemize}
+
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes3.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparing Boxes}{Overlapping Boxes: Non-Max Suppression (NMS)}
+\begin{columns}[T] % align columns
+\begin{column}{.55\textwidth}
+\vspace{5mm} %5mm vertical space
+\begin{itemize}
+\item {\bf Problema:} {\it Object Detectors} frequentemente detectam {\it boxes} sobrepostos:
+\item {\bf Solução:} pós-processar detecções utilizando {\bf Non-Max Suppression (NMS)}
+\begin{enumerate}
+\item Selecione o {\it box} com maior {\it score}.
+\item Elimine {\it boxes} com baixo {\it score}.
+\begin{itemize}
+\item IoU > threshold (ex. 0.7).
+\end{itemize}
+\item Se restarem {\it boxes}, GOTO 1.
+\end{enumerate}
+\item {\color{red} Problema:} NMS pode eliminar {\it boxes} ``bons'' quando os objetos estão sob muita sobreposição... nesse caso não existe solução boa.
+\end{itemize}
+\end{column}%
+\hfill%
+\begin{column}{.5\textwidth}
+
+
+\begin{figure}[h]
+\includegraphics[width=6cm]{imgs/overlapping_boxes4.png}
+\end{figure}
+
+\end{column}%
+\end{columns}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{Evaluating}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Evaluating Object Detectors}{Mean Average Precision (mAP)}
+%\begin{columns}[T] % align columns
+%\begin{column}{.55\textwidth}
+%\vspace{5mm} %5mm vertical space
+%\begin{itemize}
+%\item Execute o {\it object detector} em todas as imagens de teste (com NMS).
+%\item Para cada categoria, calcule {\it Average Precision} (AP) = área sob Precisão vs Curva Recall
+%\end{itemize}
+%\end{column}%
+%\hfill%
+%
+%\begin{column}{.5\textwidth}
+%
+%
+%\end{column}%
+%\end{columns}
+%
+%\end{frame}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{frame}{Evaluating Object Detectors}{Mean Average Precision (mAP)}
+%\begin{columns}[T] % align columns
+%\begin{column}{.55\textwidth}
+%\vspace{5mm} %5mm vertical space
+%\begin{enumerate}
+%\item Execute o {\it object detector} em todas as imagens de teste (com NMS).
+%\item Para cada categoria, calcule {\it Average Precision} (AP) = área sob Precisão vs Curva Recall
+%\begin{enumerate}
+%\item Para cada detecção (do {\it score} mais alto para o {\it score} mais baixo)
+%\begin{itemize}
+%\item Se ele combina algum GT box com IoU > 0.5, marque-o como positivo e elimine o GT.
+%\item Caso contrário, marque como negativo.
+%\item Plote um ponto na curva PR.
+%\end{itemize}
+%\item Average Precision (AP) = área sob a curva PR.
+%\end{enumerate}
+%\item Mean Average Precision (mAP) = média de AP para cada categoria.
+%\item Para ``COCO mAP'': calcule mAP@thresh para cada IoU threashold e pegue a média.
+%\end{enumerate}
+%\end{column}%
+%\hfill%
+%
+%\begin{column}{.5\textwidth}
+%
+%
+%\end{column}%
+%\end{columns}
+%
+%\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Tensorflow Object Detection API}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Tensorflow Object Detection API}{Tutorial}
+\begin{itemize}
+\item Para utilizar os modelos descritos é possível utilizar a API de {\bf Object Detection} do {\color{blue}Tensorflow}.
+\item É um {\it framework Open Source} baseado em Tensorflow.
+\item Fornece suporte para criação de modelos capazes de localizar e identificar objetos em uma imagem.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Tensorflow Object Detection API}{Tutorial}
+Vamos aprender:
+\begin{itemize}
+\item Preparação do ambiente utilizando Google Colab.
+\item Ferramentas para criação de datasets.
+\item Organização dos dados de treinamento.
+\item Configurar o treinamento.
+\item Treinar e salvar o modelo.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Tensorflow Object Detection API}{Tutorial}
+Existem outras ferramentas e é possível encontrar algumas outras através do link:
+\begin{itemize}
+\item \href{https://en.wikipedia.org/wiki/List_of_manual_image_annotation_tools}{https://en.wikipedia.org/wiki/List\_of\_manual\_image\_annotation\_tools}
+\end{itemize}
+Encontre a que mais goste...
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Architectures}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Detecção de Objetos}{Arquiteturas}
+\begin{itemize}
+\item {\bf R-CNN} (Regions with Convolutional Network)
+\item {\bf Fast-RCNN}
+\item {\bf Faster-RCNN}
+\item {\bf SSD} (Single Shot Detection)
+\item {\bf YOLO} (You Only Look Once)
+\item {\bf R-FCNN} (Region-Based Convolutional Network)
+\item {\bf SqueezeDet}
+\item Dentre outras...
+\end{itemize}
+
+\vspace{1cm}
+\tiny{Fonte: \href{https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/}{https://machinelearningmastery.com/convolutional-layers-for-deep-learning-neural-networks/}}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Datasets}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Detecção de Objetos}{Datasets}
+Os principais datasets utilizados para Detecção de objetos são:
+\begin{itemize}
+\item {\bf Open Images v4}: 9M imagens com 600 classes
+\begin{itemize}
+\item Download: \href{https://storage.googleapis.com/openimages/web/index.html}{https://storage.googleapis.com/openimages/web/index.html}
+\end{itemize}
+\item {\bf ImageNet}: 450k imagens com 200 classes
+\begin{itemize}
+\item \href{https://image-net.org/challenges/LSVRC/}{https://image-net.org/challenges/LSVRC/}
+\end{itemize}
+\item {\bf COCO}: 120k imagens com 80 classes
+\begin{itemize}
+\item Download: \href{https://cocodataset.org/}{https://cocodataset.org/}
+\end{itemize}
+\item {\bf Pascal VOC}: 12k imagens com 20 classes
+\begin{itemize}
+\item \href{http://host.robots.ox.ac.uk/pascal/VOC/}{http://host.robots.ox.ac.uk/pascal/VOC/.}
+\end{itemize}
+\item {\bf Oxford-IIIT Pet}: 7k imagens com 37 classes
+\begin{itemize}
+\item \href{https://www.robots.ox.ac.uk/~vgg/data/pets/}{https://www.robots.ox.ac.uk/~{}vgg/data/pets/}
+\end{itemize}
+\item {\bf KITTI Vision}: 7k imagens com 3 classes
+\begin{itemize}
+\item \href{http://www.cvlibs.net/datasets/kitti/}{http://www.cvlibs.net/datasets/kitti/}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+% https://lapix.ufsc.br/ensino/visao/visao-computacionaldeep-learning/deteccao-de-objetos-em-imagens/
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Referências}
+\begin{itemize}
+\item Deep Learning for Computer Vision - University of Michigan
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=TB-fdISzpHQ}{Lecture 15: Object Detection}
+\end{itemize}
+\item Object Detection for Dummies
+\begin{itemize}
+\item \href{https://lilianweng.github.io/lil-log/2017/10/29/object-recognition-for-dummies-part-1.html}{Object Detection for Dummies Part 1: Gradient Vector, HOG, and SS}
+\item \href{https://lilianweng.github.io/lil-log/2017/12/15/object-recognition-for-dummies-part-2.html\#evaluation-metrics-map}{Object Detection for Dummies Part 2: CNN, DPM and Overfeat}
+\item \href{https://lilianweng.github.io/lil-log/2017/12/31/object-recognition-for-dummies-part-3.html}{Object Detection for Dummies Part 3: R-CNN Family}
+\item \href{https://lilianweng.github.io/lil-log/2018/12/27/object-detection-part-4.html}{Object Detection for Dummies Part 4: Fast Detection Models}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+
+
+\end{document}
