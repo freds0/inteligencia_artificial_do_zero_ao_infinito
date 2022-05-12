@@ -1,6 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
-\beamer@sectionintoc {2}{Keep it Simple}{10}{0}{2}
-\beamer@sectionintoc {3}{Early stopping}{12}{0}{3}
-\beamer@sectionintoc {4}{Dropout}{16}{0}{4}
-\beamer@sectionintoc {5}{Regulariza\c c\~ao L1 e L2}{23}{0}{5}

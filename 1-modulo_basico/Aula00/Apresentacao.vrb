@@ -1,7 +1,0 @@
-\frametitle{Regressão Linear}\framesubtitle {Coeficiente de Determinação (R2 Score)}
-\begin{itemize}
-\item O coeficiente de Determinação ($R^2$) varia entre 0 e 1 e expressa a quantidade da variância dos dados que é explicada pelo modelo linear.
-\item Por exemplo, $R^2 = 0,56$ significa que o modelo consegue prever 56\% da variância total dos dados.
-\end{itemize}
-
-% https://dadosaocubo.com/regressao-com-scikit-learn/

@@ -1,6 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
-\beamer@subsectionintoc {1}{1}{LeNet}{7}{0}{1}
-\beamer@subsectionintoc {1}{2}{AlexNet}{9}{0}{1}
-\beamer@subsectionintoc {1}{3}{VGG16}{11}{0}{1}
-\beamer@sectionintoc {2}{Transfer Learning}{13}{0}{2}

@@ -1,6 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Localization}{4}{0}{2}
-\beamer@sectionintoc {3}{Classification}{9}{0}{3}
-\beamer@sectionintoc {4}{Precision x Recall}{11}{0}{4}
-\beamer@sectionintoc {5}{Mean Average Precision}{14}{0}{5}

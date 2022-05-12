@@ -1,4 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
-\beamer@sectionintoc {2}{Segmenta\c c\~ao de Imagens}{4}{0}{2}
-\beamer@sectionintoc {3}{Mask R-CNN}{10}{0}{3}

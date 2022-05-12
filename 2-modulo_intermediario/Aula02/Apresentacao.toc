@@ -1,7 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
-\beamer@sectionintoc {2}{Multi-Layer Perceptron}{16}{0}{2}
-\beamer@sectionintoc {3}{Feed Foward}{25}{0}{3}
-\beamer@sectionintoc {4}{Back Propagation}{52}{0}{4}
-\beamer@sectionintoc {5}{Descending Gradient}{68}{0}{5}
-\beamer@sectionintoc {6}{Multi-Class Problem}{75}{0}{6}

@@ -1,3 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
-\beamer@sectionintoc {2}{Regress\~ao Linear}{5}{0}{2}

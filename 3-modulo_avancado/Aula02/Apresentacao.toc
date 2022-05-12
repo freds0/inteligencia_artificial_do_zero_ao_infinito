@@ -1,4 +1,0 @@
-\babel@toc {portuges}{}
-\beamer@sectionintoc {1}{Introdu\c c\~ao}{2}{0}{1}
-\beamer@sectionintoc {2}{Spatial Separable Convolution}{8}{0}{2}
-\beamer@sectionintoc {3}{Depthwise Separable Convolutions}{12}{0}{3}
