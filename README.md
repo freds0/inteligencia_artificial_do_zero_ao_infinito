@@ -14,9 +14,9 @@ Material utilizado no projeto Inteligência Artificial: do zero ao infinito. Mai
 
 ### Módulo Intermediário (Classificacao de Objetos)
 
-- Aula 1: [Introducão ao modelo Perceptron](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula01/Apresentacao.pdf)
-- Aula 2: [Apresentando o Multi-Layer Perceptron](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula02/Apresentacao.pdf)
-- Aula 3: [Entendendo Overfitting e os Métodos de Regularizacão](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula03/Apresentacao.pdf)
+- Aula 1: [Introducão ao modelo Perceptron](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula01/Apresentacao.pdf) [![jupyter notebook](imgs/jupyter_icon.png)](2-modulo_intermediario/Aula01/notebooks/02-Perceptron-From-Scratch/perceptron_from_scratch.ipynb)
+- Aula 2: [Apresentando o Multi-Layer Perceptron](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula02/Apresentacao.pdf) [![jupyter notebook](imgs/jupyter_icon.png)](2-modulo_intermediario/Aula02/notebooks/02-mlp/1_mlp_solucao.ipynb)
+- Aula 3: [Entendendo Overfitting e os Métodos de Regularizacão](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula03/Apresentacao.pdf) [![jupyter notebook](imgs/jupyter_icon.png)](2-modulo_intermediario/Aula03/notebooks/understanding_regularization_overfitting.ipynb)
 - Aula 4: [Redes Neurais Convolucionais](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula04/Apresentacao.pdf)
 - Aula 5: [Utilizando Técnicas de Data Augmentation](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula05/Apresentacao.pdf)
 - Aula 6: [Apresentando Arquiteturas Baseadas em CNNs (Parte 1)](https://github.com/freds0/inteligencia_artificial_do_zero_ao_infinito/blob/main/2-modulo_intermediario/Aula06/Apresentacao.pdf)
