@@ -1,11 +1,9 @@
-# Introducão
-Material utilizado no projeto Inteligência Artificial: do zero ao infinito.
+# Projeto: Inteligência Artificial, do zero ao infinito
+Material utilizado no projeto Inteligência Artificial: do zero ao infinito. Mais informacoes em [https://sites.google.com/view/iazeroaoinfinito](https://sites.google.com/view/iazeroaoinfinito)
 
-Mais informacoes em [https://sites.google.com/view/iazeroaoinfinito](https://sites.google.com/view/iazeroaoinfinito)
+## Conteúdo
 
-# Conteúdo
-
-## Módulo Básico (Incompleto)
+### Módulo Básico (Incompleto)
 - Aula 1: Aprendizado Supervisionado x Não-Supervisionado
 - Aula 2: Aprendizagem Não-Supervisionada
 - Aula 3: Aprendizagem Supervisionada
@@ -14,7 +12,7 @@ Mais informacoes em [https://sites.google.com/view/iazeroaoinfinito](https://sit
 - Aula 6: K-Means
 - Aula 7: Introducão à Regressão Linear
 
-## Módulo Intermediário (Classificacao de Objetos)
+### Módulo Intermediário (Classificacao de Objetos)
 
 - Aula 1: Introducão ao modelo Perceptron
 - Aula 2: Apresentando o Multi-Layer Perceptron
@@ -26,7 +24,7 @@ Mais informacoes em [https://sites.google.com/view/iazeroaoinfinito](https://sit
 - Aula 8: Apresentando Arquiteturas Baseadas em CNNs (Parte 2)
 - Aula 9: Style Transfer
 
-## Módulo Avancado (Deteccão de Objetos)
+### Módulo Avancado (Deteccão de Objetos)
 
 - Aula 1: Introducão à Deteccão de Objetos: Modelos R-CNN
 - Aula 2: Apresentando o modelo MobileNet
@@ -37,3 +35,8 @@ Mais informacoes em [https://sites.google.com/view/iazeroaoinfinito](https://sit
 - Aula 7: Introducao aos modelos para Segmentacao de Imagens
 - Aula 8: Aprendendo a implantar modelos em producão
 - Aula 9: Métricas de Avaliacao
+
+## Projetos
+- Um projeto para deteccão de falhas em linhas de transmissão a partir de imagens aéreas. [Link](https://github.com/freds0/fault_detection_power_transmission_lines)
+- Um projeto geral para segmentacão de objetos utilizando Tensorflow. [Link](https://github.com/freds0/capybara_image_segmentation)
+- Um projeto para treinamento de modelos de deteccão de Capivaras.  [Link](https://github.com/freds0/capybara_object_detection)
